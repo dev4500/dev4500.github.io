@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Batra | AIML Engineer Portfolio</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Dark background matching GitHub/VS Code themes */
+            color: #c9d1d9; /* Light text */
+            scroll-behavior: smooth;
+        }
+        .accent-color {
+            color: #38bdf8; /* Sky Blue accent for tech look */
+        }
+        .accent-bg {
+            background-color: #0369a1; /* Darker blue background */
+        }
+        .card {
+            background-color: #161b22;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(56, 189, 248, 0.2), 0 4px 6px -2px rgba(56, 189, 248, 0.1);
+        }
+        /* Custom styling for the typewriter cursor effect */
+        #typing-text {
+            border-right: 3px solid #38bdf8; /* Blinking cursor */
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: typing 4s steps(40, end), blink-caret 0.75s step-end infinite;
+            width: 0; /* Starts hidden */
+        }
+
+        /* Keyframes for typewriter effect */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* Keyframes for blinking cursor */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #38bdf8; }
+        }
+        
+        /* Futuristic Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0d1117, #0f283d, #161b22, #0f283d);
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* NEW: Fade-in on Scroll Styling */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* NEW: Project Metric Bar Styling */
+        .metric-bar-container {
+            height: 8px; /* Standard bar height */
+            width: 100%;
+            background-color: #2f343a; /* Dark track */
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .metric-bar {
+            height: 100%;
+            transition: width 1s ease-out; /* Animation for the bar fill */
+            width: 0; /* Start hidden for animation */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Animated Background Layer for Futuristic Feel -->
+    <div class="animated-bg"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-50 bg-gray-900 bg-opacity-95 shadow-lg border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Name -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-bold accent-color tracking-wider">/&lt;AI_ENG/&gt;</a>
+                </div>
+                <!-- Navigation Links -->
+                <div class="flex space-x-4">
+                    <a href="#about" class="text-gray-300 hover:text-white transition duration-150">About</a>
+                    <a href="#skills" class="text-gray-300 hover:text-white transition duration-150">Skills</a>
+                    <a href="#projects" class="text-gray-300 hover:text-white transition duration-150">Projects</a>
+                    <a href="#contact" class="text-gray-300 hover:text-white transition duration-150">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- 1. Hero Section -->
+        <!-- Hero section does not need fade-in as it's visible on load -->
+        <section id="hero" class="py-20 md:py-32 flex flex-col items-center text-center">
+            <div class="mb-6">
+                <span class="text-sm font-medium px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full tracking-wider uppercase">
+                    Focused on Data and Intelligence
+                </span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-4">
+                Hi, I'm <span class="accent-color">Dev Batra</span>
+            </h1>
+            <p class="text-2xl md:text-3xl text-gray-400 font-light mb-8 h-8">
+                <span id="typing-text">Machine Learning Engineer.</span>
+            </p>
+            <div class="space-x-4">
+                <a href="#projects" class="inline-block px-8 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow-lg hover:bg-cyan-500 transition duration-300">
+                    View Projects
+                </a>
+                <a href="#contact" class="inline-block px-8 py-3 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:bg-gray-800 transition duration-300">
+                    Get In Touch
+                </a>
+            </div>
+        </section>
+
+        <!-- 2. About Me Section - Added fade-in-section class -->
+        <section id="about" class="py-16 border-t border-gray-800 fade-in-section">
+            <h2 class="text-4xl font-bold mb-8 text-center accent-color">About Me</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center card p-8 rounded-xl shadow-2xl">
+                <div class="md:col-span-2">
+                    <p class="text-lg text-gray-300 mb-4">
+                        I am an <b>AI Product Developer</b> specializing in building and deploying AI/ML Solutions. As a MCA student, my focus is on full-stack development of intelligent systems. This involves developing end-to-end solutions, leveraging advanced techniques like <b>Deep Learning and Generative AI</b>, and deploying scalable applications using modern programming frameworks.
+                    </p>
+                    <p class="text-lg text-gray-300 mb-4">
+                        My experience includes developing a full-stack <b>AI-Powered Report Generator</b>, applying CNNs for fracture detection, and using ML to solve real-world problems in data analysis and forecasting during my roles with organizations like <b>IBM and Omdena</b>.
+                    </p>
+                    <p class="text-lg text-gray-300">
+                        I currently hold an <b>Expert Rank (694) on Kaggle</b>, demonstrating strong applied skills in competitive ML. I am focused on building AI-driven solutions that blend innovation, efficiency, and real-world impact.
+                    </p>
+                </div>
+                <!-- Profile Image Section -->
+                <div class="flex justify-center md:justify-end">
+                    <!-- IMPORTANT: Please replace the 'src' URL below with a publicly accessible link (e.g., from LinkedIn or GitHub). Local files like 'devimg.jpeg' will not load in the web preview. -->
+                    <a href="https://linkedin.com/in/devbatra" target="_blank" 
+                       class="block group cursor-pointer w-48 h-48 rounded-full border-4 border-cyan-600/50 p-2 transition duration-300 hover:border-cyan-400 hover:shadow-lg">
+                        <img src="devimg.jpeg" 
+                             alt="Profile Photo of Dev Batra" 
+                             class="w-full h-full object-cover rounded-full"
+                             onerror="this.onerror=null; this.src='https://placehold.co/192x192/161B22/C9D1D9?text=Error: Public+URL+Required';"
+                        >
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Core Skills Section - Added fade-in-section class -->
+        <section id="skills" class="py-16 border-t border-gray-800 fade-in-section">
+            <h2 class="text-4xl font-bold mb-12 text-center accent-color">Core Skills & Tech Stack</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- Skill Block 1: ML Frameworks -->
+                <div class="card p-6 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">ML & AI Tools</h3>
+                    <ul class="list-none space-y-2 text-gray-300">
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> PyTorch & TensorFlow/Keras</li>
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Scikit-learn, XGBoost</li>
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Generative AI / LLMs (T5)</li>
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Hyperparameter Tuning</li>
+                    </ul>
+                </div>
+
+                <!-- Skill Block 2: Languages & Data -->
+                <div class="card p-6 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Programming & Data</h3>
+                    <ul class="list-none space-y-2 text-gray-300">
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Python (Advanced)</li>
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Pandas, NumPy, Matplotlib</li>
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> SQL / Data Preprocessing (EDA)</li>
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> R (Basic)</li>
+                    </ul>
+                </div>
+
+                <!-- Skill Block 3: Development & Tools -->
+                <div class="card p-6 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Development & MLOps</h3>
+                    <ul class="list-none space-y-2 text-gray-300">
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Flask, FastAPI (API Services)</li>
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Docker / Kubernetes</li>
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Jupyter, Google Colab</li>
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Git, CI/CD Pipelines</li>
+                    </ul>
+                </div>
+
+                <!-- Skill Block 4: Core Domains -->
+                <div class="card p-6 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Core Domains</h3>
+                    <ul class="list-none space-y-2 text-gray-300">
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Gen AI & LLMs</li>
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Machine Learning</li>
+                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Python Development</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Projects Section - Added fade-in-section class -->
+        <section id="projects" class="py-16 border-t border-gray-800 fade-in-section">
+            <h2 class="text-4xl font-bold mb-12 text-center accent-color">Featured Projects</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1: AI Powered Report Generator (NLP/Generative AI) - MATCHES RESUME -->
+                <div class="card p-6 rounded-xl border border-cyan-600/30">
+                    <div class="text-4xl mb-4 accent-color">
+                        <!-- Inline SVG Icon for Report/Document -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2 text-white">AI-Powered Narrative Report Generator</h3>
+                    <p class="text-gray-400 mb-4 text-sm">
+                        Architected a <b>Full-Stack AI Product</b> (ReactJS/Tailwind frontend, <b>FastAPI</b> backend) using an <b>LLM-based AI agent</b> to automate business report generation, KPI visualization, and structured <b>PowerPoint</b> report building from raw data.
+                    </p>
+
+                    <!-- Animated Metric Visualization (Generic example for now) -->
+                    <div class="space-y-3 mb-4 text-sm font-mono" id="project-metrics-1" data-f1="0.92" data-precision="0.95" data-recall="0.88">
+                        <p class="flex justify-between items-center text-cyan-300">
+                            Automation Rate <span class="text-white">92%</span>
+                        </p>
+                        <div class="metric-bar-container"><div class="metric-bar bg-cyan-600" data-value="0.92"></div></div>
+                        
+                        <p class="flex justify-between items-center text-gray-400">
+                            Report Fidelity <span class="text-white">95%</span>
+                        </p>
+                        <div class="metric-bar-container"><div class="metric-bar bg-blue-500" data-value="0.95"></div></div>
+                        
+                        <p class="flex justify-between items-center text-gray-400">
+                            Deployment Readiness <span class="text-white">88%</span>
+                        </p>
+                        <div class="metric-bar-container"><div class="metric-bar bg-teal-500" data-value="0.88"></div></div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-xs px-2 py-1 rounded-full bg-blue-900 text-blue-300">Generative AI</span>
+                        <span class="text-xs px-2 py-1 rounded-full bg-green-900 text-green-300">FastAPI</span>
+                        <span class="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-300">LLMs/T5</span>
+                    </div>
+                    <a href="#" class="inline-block text-cyan-400 hover:text-cyan-300 font-medium">View Code & Details &rarr;</a>
+                </div>
+
+                <!-- Project 2: Fracture Detection using CNN (Computer Vision) - MATCHES RESUME -->
+                <div class="card p-6 rounded-xl border border-cyan-600/30">
+                    <div class="text-4xl mb-4 accent-color">
+                        <!-- Inline SVG Icon for Vision/Medical Imaging -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2 text-white">Medical Image Fracture Detection</h3>
+                    <p class="text-gray-400 mb-4 text-sm">
+                        Developed a high-accuracy CNN-based model using <b>ResNet 50, DenseNet, and MobileNet</b> to classify bone fractures from X-ray images, complete with a <b>Flask web application</b> for real-time prediction.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-xs px-2 py-1 rounded-full bg-blue-900 text-blue-300">Computer Vision</span>
+                        <span class="text-xs px-2 py-1 rounded-full bg-green-900 text-green-300">CNN/ResNet</span>
+                        <span class="text-xs px-2 py-1 rounded-full bg-purple-900 text-purple-300">Flask Deployment</span>
+                    </div>
+                    <a href="#" class="inline-block text-cyan-400 hover:text-cyan-300 font-medium">View Code & Details &rarr;</a>
+                </div>
+
+                <!-- Project 3: Audio to Sign Language Conversion System (Multi-Modal AI) - MATCHES RESUME -->
+                <div class="card p-6 rounded-xl border border-cyan-600/30">
+                    <div class="text-4xl mb-4 accent-color">
+                        <!-- Inline SVG Icon for Speech/Communication -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2 text-white">Audio-to-Sign Language Conversion</h3>
+                    <p class="text-gray-400 mb-4 text-sm">
+                        Engineered an accessibility-focused system using <b>NLP, Google API, and OpenCV</b> to convert spoken language (audio input) into corresponding sign language gestures, bridging communication gaps for people with hearing impairments.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-xs px-2 py-1 rounded-full bg-yellow-900 text-yellow-300">Multi-modal AI</span>
+                        <span class="text-xs px-2 py-1 rounded-full bg-red-900 text-red-300">NLP/OpenCV</span>
+                        <span class="text-xs px-2 py-1 rounded-full bg-teal-900 text-teal-300">Accessibility Tech</span>
+                    </div>
+                    <a href="#" class="inline-block text-cyan-400 hover:text-cyan-300 font-medium">View Code & Details &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Contact Section - Added fade-in-section class -->
+        <section id="contact" class="py-16 border-t border-gray-800 fade-in-section">
+            <h2 class="text-4xl font-bold mb-8 text-center accent-color">Get in Touch</h2>
+            <div class="max-w-xl mx-auto text-center card p-10 rounded-xl">
+                <p class="text-lg text-gray-300 mb-6">
+                    If you have a challenging AI/ML project, a data science question, or just want to connect, feel free to reach out. I'm always looking for innovative collaborations.
+                </p>
+                <div class="flex justify-center space-x-6">
+                    <!-- Email -->
+                    <a href="mailto:dev.batra@hotmail.com" class="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition duration-300">
+                        <!-- SVG for Email -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 4v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7"/></svg>
+                        <span>dev.batra@hotmail.com</span>
+                    </a>
+                    <!-- LinkedIn -->
+                    <a href="https://linkedin.com/in/devbatra" target="_blank" class="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition duration-300">
+                        <!-- SVG for LinkedIn -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2V9z"/><circle cx="4" cy="4" r="2"/></svg>
+                        <span>LinkedIn</span>
+                    </a>
+                    <!-- Kaggle -->
+                    <a href="https://kaggle.com/devbatrax" target="_blank" class="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition duration-300">
+                        <!-- Using a generic achievement/trophy SVG for Kaggle Expert badge -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 448 512" fill="currentColor">
+                            <path d="M149.3 275.3l-1.3 2.7c-5.8 12.1-17.7 20-30.9 20H80c-26.5 0-48-21.5-48-48V256c0-26.5 21.5-48 48-48h37.1c13.2 0 25.1 7.9 30.9 20l1.3 2.7 75 150.1c11.7 23.4 35.8 38.9 61.3 38.9H400c26.5 0 48-21.5 48-48V352c0-26.5-21.5-48-48-48h-37.1c-13.2 0-25.1-7.9-30.9-20l-1.3-2.7L256 160.7l1.3-2.7c5.8-12.1 17.7-20 30.9-20H400c26.5 0 48-21.5 48-48V64c0-26.5-21.5-48-48-48H80c-26.5 0-48 21.5-48 48v48c0 26.5 21.5 48 48 48h37.1c13.2 0 25.1 7.9 30.9 20l1.3 2.7L256 351.3l-106.7-76z"/>
+                        </svg>
+                        <span>Kaggle</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm">
+            &copy; 2025 Dev Batra | AI Engineer Portfolio.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Typewriter effect logic
+        const targetElement = document.getElementById('typing-text');
+        // Updated phrases to reflect the technical focus from your resume
+        const phrases = ["Machine Learning Engineer.", "Generative AI Specialist.", "Data Analysis Expert.", "Deep Learning Researcher."];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            if (isDeleting) {
+                targetElement.style.width = ((currentPhrase.length - charIndex) / currentPhrase.length) * 100 + '%';
+                charIndex--;
+            } else {
+                targetElement.style.width = (charIndex / currentPhrase.length) * 100 + '%';
+                charIndex++;
+            }
+
+            targetElement.textContent = currentPhrase;
+
+            let typeSpeed = isDeleting ? 75 : 150;
+
+            if (!isDeleting && charIndex > currentPhrase.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex < 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        // NEW: Fade-in on Scroll Logic (using Intersection Observer) and Metric Animation Trigger
+        function animateMetrics(projectElement) {
+            // Find all metric bars within the project card
+            const metricBars = projectElement.querySelectorAll('.metric-bar');
+            
+            metricBars.forEach(bar => {
+                const value = parseFloat(bar.dataset.value); // Get value from data-value attribute
+                if (!isNaN(value)) {
+                    // Set the width for the transition to occur
+                    bar.style.width = `${value * 100}%`;
+                }
+            });
+        }
+        
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // 1. Trigger section fade-in
+                    entry.target.classList.add('is-visible');
+
+                    // 2. Trigger metric animation if it's the projects section
+                    if (entry.target.id === 'projects') {
+                        // We target the individual project card elements (the .card div)
+                        const projectCard1 = entry.target.querySelector('.grid > div:first-child');
+                        animateMetrics(projectCard1);
+                    }
+                    
+                    // Stop observing once visible
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+
+        // Attach the observer to all sections that should fade in
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+
+        window.onload = function() {
+            targetElement.style.width = '0';
+            type();
+            // Since we use IntersectionObserver for sections, we only need to start the typewriter here.
+        };
+
+    </script>
+</body>
+</html>
