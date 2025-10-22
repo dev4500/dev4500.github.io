@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dev Batra | AIML Engineer Portfolio</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+    <title>Dev Batra | AIML Engineer Portfolio</title>
     <!-- Load Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Use Inter font -->
@@ -52,14 +52,14 @@
             50% { border-color: #38bdf8; }
         }
         
-        /* Futuristic Animated Background */
+        /* Futuristic Animated Gradient Background Layer (z-index: -3) */
         .animated-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -3; /* Farthest back */
             background: linear-gradient(-45deg, #0d1117, #0f283d, #161b22, #0f283d);
             background-size: 400% 400%;
             animation: gradient-shift 15s ease infinite;
@@ -71,8 +71,22 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+        
+        /* Neural Network Canvas Layer (z-index: -2) */
+        #neural-net-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2; /* Above the gradient, behind content */
+            opacity: 0.4; /* Subtle layer on top of the gradient */
+            background-color: transparent;
+            /* GLOW EFFECT: Added drop shadow filter to create a soft bloom */
+            filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.8));
+        }
 
-        /* NEW: Fade-in on Scroll Styling */
+        /* Fade-in on Scroll Styling */
         .fade-in-section {
             opacity: 0;
             transform: translateY(20px);
@@ -84,7 +98,7 @@
             transform: translateY(0);
         }
 
-        /* NEW: Project Metric Bar Styling */
+        /* Project Metric Bar Styling */
         .metric-bar-container {
             height: 8px; /* Standard bar height */
             width: 100%;
@@ -101,8 +115,11 @@
 </head>
 <body class="antialiased">
 
-    <!-- Animated Background Layer for Futuristic Feel -->
+    <!-- 1. Animated Gradient Background Layer -->
     <div class="animated-bg"></div>
+    
+    <!-- 2. Neural Network Canvas Background Layer (Fixed) -->
+    <canvas id="neural-net-bg"></canvas>
 
     <!-- Navigation Bar -->
     <nav class="sticky top-0 z-50 bg-gray-900 bg-opacity-95 shadow-lg border-b border-gray-800">
@@ -110,10 +127,10 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo/Name -->
                 <div class="flex-shrink-0">
-                    <a href="#" class="text-2xl font-bold accent-color tracking-wider">/&lt;AI_ENG/&gt;</a>
+                    <a href="#" class="text-xl sm:text-2xl font-bold accent-color tracking-wider">/&lt;AI_ENG/&gt;</a>
                 </div>
-                <!-- Navigation Links -->
-                <div class="flex space-x-4">
+                <!-- Navigation Links - Added responsive font size and spacing -->
+                <div class="flex space-x-2 sm:space-x-4 text-sm sm:text-base">
                     <a href="#about" class="text-gray-300 hover:text-white transition duration-150">About</a>
                     <a href="#skills" class="text-gray-300 hover:text-white transition duration-150">Skills</a>
                     <a href="#projects" class="text-gray-300 hover:text-white transition duration-150">Projects</a>
@@ -123,10 +140,9 @@
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"> <!-- z-10 ensures content is above backgrounds -->
 
         <!-- 1. Hero Section -->
-        <!-- Hero section does not need fade-in as it's visible on load -->
         <section id="hero" class="py-20 md:py-32 flex flex-col items-center text-center">
             <div class="mb-6">
                 <span class="text-sm font-medium px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full tracking-wider uppercase">
@@ -136,39 +152,38 @@
             <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-4">
                 Hi, I'm <span class="accent-color">Dev Batra</span>
             </h1>
-            <p class="text-2xl md:text-3xl text-gray-400 font-light mb-8 h-8">
+            <p class="text-xl md:text-3xl text-gray-400 font-light mb-8 h-8">
                 <span id="typing-text">Machine Learning Engineer.</span>
             </p>
-            <div class="space-x-4">
-                <a href="#projects" class="inline-block px-8 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow-lg hover:bg-cyan-500 transition duration-300">
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#projects" class="inline-block px-8 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow-lg hover:bg-cyan-500 transition duration-300 w-full sm:w-auto">
                     View Projects
                 </a>
-                <a href="#contact" class="inline-block px-8 py-3 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:bg-gray-800 transition duration-300">
+                <a href="#contact" class="inline-block px-8 py-3 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:bg-gray-800 transition duration-300 w-full sm:w-auto">
                     Get In Touch
                 </a>
             </div>
         </section>
 
-        <!-- 2. About Me Section - Added fade-in-section class -->
+        <!-- 2. About Me Section - Single column on mobile -->
         <section id="about" class="py-16 border-t border-gray-800 fade-in-section">
-            <h2 class="text-4xl font-bold mb-8 text-center accent-color">About Me</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center card p-8 rounded-xl shadow-2xl">
-                <div class="md:col-span-2">
-                    <p class="text-lg text-gray-300 mb-4">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-8 text-center accent-color">About Me</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center card p-6 sm:p-8 rounded-xl shadow-2xl">
+                <div class="md:col-span-2 order-2 md:order-1"> <!-- Text first on mobile -->
+                    <p class="text-base sm:text-lg text-gray-300 mb-4">
                         I am an <b>AI Product Developer</b> specializing in building and deploying AI/ML Solutions. As a MCA student, my focus is on full-stack development of intelligent systems. This involves developing end-to-end solutions, leveraging advanced techniques like <b>Deep Learning and Generative AI</b>, and deploying scalable applications using modern programming frameworks.
                     </p>
-                    <p class="text-lg text-gray-300 mb-4">
+                    <p class="text-base sm:text-lg text-gray-300 mb-4">
                         My experience includes developing a full-stack <b>AI-Powered Report Generator</b>, applying CNNs for fracture detection, and using ML to solve real-world problems in data analysis and forecasting during my roles with organizations like <b>IBM and Omdena</b>.
                     </p>
-                    <p class="text-lg text-gray-300">
+                    <p class="text-base sm:text-lg text-gray-300">
                         I currently hold an <b>Expert Rank (694) on Kaggle</b>, demonstrating strong applied skills in competitive ML. I am focused on building AI-driven solutions that blend innovation, efficiency, and real-world impact.
                     </p>
                 </div>
                 <!-- Profile Image Section -->
-                <div class="flex justify-center md:justify-end">
-                    <!-- IMPORTANT: Please replace the 'src' URL below with a publicly accessible link (e.g., from LinkedIn or GitHub). Local files like 'devimg.jpeg' will not load in the web preview. -->
+                <div class="flex justify-center md:justify-end order-1 md:order-2 mb-6 md:mb-0">
                     <a href="https://linkedin.com/in/devbatra" target="_blank" 
-                       class="block group cursor-pointer w-48 h-48 rounded-full border-4 border-cyan-600/50 p-2 transition duration-300 hover:border-cyan-400 hover:shadow-lg">
+                       class="block group cursor-pointer w-36 h-36 sm:w-48 sm:h-48 rounded-full border-4 border-cyan-600/50 p-2 transition duration-300 hover:border-cyan-400 hover:shadow-lg">
                         <img src="devimg.jpeg" 
                              alt="Profile Photo of Dev Batra" 
                              class="w-full h-full object-cover rounded-full"
@@ -179,11 +194,11 @@
             </div>
         </section>
 
-        <!-- 3. Core Skills Section - Added fade-in-section class -->
+        <!-- 3. Core Skills Section - Collapses to 1 column on mobile, 2 on tablet, 4 on desktop -->
         <section id="skills" class="py-16 border-t border-gray-800 fade-in-section">
-            <h2 class="text-4xl font-bold mb-12 text-center accent-color">Core Skills & Tech Stack</h2>
+            <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center accent-color">Core Skills & Tech Stack</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
 
                 <!-- Skill Block 1: ML Frameworks -->
                 <div class="card p-6 rounded-xl border border-gray-700">
@@ -230,12 +245,12 @@
             </div>
         </section>
 
-        <!-- 4. Projects Section - Added fade-in-section class -->
+        <!-- 4. Projects Section - Collapses to 1 column on mobile -->
         <section id="projects" class="py-16 border-t border-gray-800 fade-in-section">
-            <h2 class="text-4xl font-bold mb-12 text-center accent-color">Featured Projects</h2>
+            <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center accent-color">Featured Projects</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1: AI Powered Report Generator (NLP/Generative AI) - MATCHES RESUME -->
+                <!-- Project 1: AI Powered Report Generator (NLP/Generative AI) -->
                 <div class="card p-6 rounded-xl border border-cyan-600/30">
                     <div class="text-4xl mb-4 accent-color">
                         <!-- Inline SVG Icon for Report/Document -->
@@ -246,7 +261,7 @@
                         Architected a <b>Full-Stack AI Product</b> (ReactJS/Tailwind frontend, <b>FastAPI</b> backend) using an <b>LLM-based AI agent</b> to automate business report generation, KPI visualization, and structured <b>PowerPoint</b> report building from raw data.
                     </p>
 
-                    <!-- Animated Metric Visualization (Generic example for now) -->
+                    <!-- Animated Metric Visualization -->
                     <div class="space-y-3 mb-4 text-sm font-mono" id="project-metrics-1" data-f1="0.92" data-precision="0.95" data-recall="0.88">
                         <p class="flex justify-between items-center text-cyan-300">
                             Automation Rate <span class="text-white">92%</span>
@@ -272,16 +287,43 @@
                     <a href="#" class="inline-block text-cyan-400 hover:text-cyan-300 font-medium"> (Closed Source)</a>
                 </div>
 
-                <!-- Project 2: Fracture Detection using CNN (Computer Vision) - MATCHES RESUME -->
+                <!-- Project 2: Fracture Detection using CNN (Computer Vision) - UPDATED WITH ACCURACY BARS -->
                 <div class="card p-6 rounded-xl border border-cyan-600/30">
                     <div class="text-4xl mb-4 accent-color">
                         <!-- Inline SVG Icon for Vision/Medical Imaging -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
                     </div>
                     <h3 class="text-2xl font-semibold mb-2 text-white">Medical Image Fracture Detection</h3>
+                    
                     <p class="text-gray-400 mb-4 text-sm">
-                        Developed a high-accuracy CNN-based model using <b>ResNet 50, DenseNet, and MobileNet</b> to classify bone fractures from X-ray images, complete with a <b>Flask web application</b> for real-time prediction.
+                        Developed a CNN-based model using advanced architectures to classify bone fractures from X-ray images, with the following classification accuracies:
                     </p>
+
+                    <!-- Animated Metric Visualization for Model Accuracies -->
+                    <div class="space-y-3 mb-4 text-sm font-mono" id="project-metrics-2">
+                        <!-- DenseNet (78.4%) -->
+                        <p class="flex justify-between items-center text-cyan-300">
+                            DenseNet Accuracy <span class="text-white">78.4%</span>
+                        </p>
+                        <!-- Note: Data-value is 0.784 for the JS animation -->
+                        <div class="metric-bar-container"><div class="metric-bar bg-green-500" data-value="0.784"></div></div>
+                        
+                        <!-- MobileNet (66.0%) -->
+                        <p class="flex justify-between items-center text-gray-400">
+                            MobileNet Accuracy <span class="text-white">66.0%</span>
+                        </p>
+                        <!-- Note: Data-value is 0.660 for the JS animation -->
+                        <div class="metric-bar-container"><div class="metric-bar bg-yellow-500" data-value="0.660"></div></div>
+                        
+                        <!-- ResNet 50 (54.0%) -->
+                        <p class="flex justify-between items-center text-gray-400">
+                            ResNet 50 Accuracy <span class="text-white">54.0%</span>
+                        </p>
+                        <!-- Note: Data-value is 0.540 for the JS animation -->
+                        <div class="metric-bar-container"><div class="metric-bar bg-red-500" data-value="0.540"></div></div>
+                    </div>
+                    <!-- END UPDATED METRICS -->
+
                     <div class="flex flex-wrap gap-2 mb-4">
                         <span class="text-xs px-2 py-1 rounded-full bg-blue-900 text-blue-300">Computer Vision</span>
                         <span class="text-xs px-2 py-1 rounded-full bg-green-900 text-green-300">CNN/ResNet</span>
@@ -290,7 +332,7 @@
                     <a href="https://www.kaggle.com/code/devbatrax/fracture-detection-cnn-resnet-densenet-mobilenet" class="inline-block text-cyan-400 hover:text-cyan-300 font-medium">View Code & Details &rarr;</a>
                 </div>
 
-                <!-- Project 3: Audio to Sign Language Conversion System (Multi-Modal AI) - MATCHES RESUME -->
+                <!-- Project 3: Audio to Sign Language Conversion System (Multi-Modal AI) -->
                 <div class="card p-6 rounded-xl border border-cyan-600/30">
                     <div class="text-4xl mb-4 accent-color">
                         <!-- Inline SVG Icon for Speech/Communication -->
@@ -310,28 +352,29 @@
             </div>
         </section>
 
-        <!-- 5. Contact Section - Added fade-in-section class -->
+        <!-- 5. Contact Section - Added responsive stacking for mobile -->
         <section id="contact" class="py-16 border-t border-gray-800 fade-in-section">
-            <h2 class="text-4xl font-bold mb-8 text-center accent-color">Get in Touch</h2>
-            <div class="max-w-xl mx-auto text-center card p-10 rounded-xl">
-                <p class="text-lg text-gray-300 mb-6">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-8 text-center accent-color">Get in Touch</h2>
+            <div class="max-w-xl mx-auto text-center card p-8 sm:p-10 rounded-xl">
+                <p class="text-base sm:text-lg text-gray-300 mb-6">
                     If you have a challenging AI/ML project, a data science question, or just want to connect, feel free to reach out. I'm always looking for innovative collaborations.
                 </p>
-                <div class="flex justify-center space-x-6">
+                <!-- RESPONSIVENESS FIX: flex-col on mobile, flex-row on medium screens -->
+                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-x-6 md:space-y-0">
                     <!-- Email -->
-                    <a href="mailto:dev.batra@hotmail.com" class="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition duration-300">
+                    <a href="mailto:dev.batra@hotmail.com" class="flex items-center justify-center space-x-2 text-gray-400 hover:text-cyan-400 transition duration-300">
                         <!-- SVG for Email -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 4v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7"/></svg>
                         <span>dev.batra@hotmail.com</span>
                     </a>
                     <!-- LinkedIn -->
-                    <a href="https://linkedin.com/in/devbatra" target="_blank" class="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition duration-300">
+                    <a href="https://linkedin.com/in/devbatra" target="_blank" class="flex items-center justify-center space-x-2 text-gray-400 hover:text-cyan-400 transition duration-300">
                         <!-- SVG for LinkedIn -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2V9z"/><circle cx="4" cy="4" r="2"/></svg>
                         <span>LinkedIn</span>
                     </a>
                     <!-- Kaggle -->
-                    <a href="https://kaggle.com/devbatrax" target="_blank" class="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition duration-300">
+                    <a href="https://kaggle.com/devbatrax" target="_blank" class="flex items-center justify-center space-x-2 text-gray-400 hover:text-cyan-400 transition duration-300">
                         <!-- Using a generic achievement/trophy SVG for Kaggle Expert badge -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 448 512" fill="currentColor">
                             <path d="M149.3 275.3l-1.3 2.7c-5.8 12.1-17.7 20-30.9 20H80c-26.5 0-48-21.5-48-48V256c0-26.5 21.5-48 48-48h37.1c13.2 0 25.1 7.9 30.9 20l1.3 2.7 75 150.1c11.7 23.4 35.8 38.9 61.3 38.9H400c26.5 0 48-21.5 48-48V352c0-26.5-21.5-48-48-48h-37.1c-13.2 0-25.1-7.9-30.9-20l-1.3-2.7L256 160.7l1.3-2.7c5.8-12.1 17.7-20 30.9-20H400c26.5 0 48-21.5 48-48V64c0-26.5-21.5-48-48-48H80c-26.5 0-48 21.5-48 48v48c0 26.5 21.5 48 48 48h37.1c13.2 0 25.1 7.9 30.9 20l1.3 2.7L256 351.3l-106.7-76z"/>
@@ -363,7 +406,6 @@
 
         // Typewriter effect logic
         const targetElement = document.getElementById('typing-text');
-        // Updated phrases to reflect the technical focus from your resume
         const phrases = ["Machine Learning Engineer.", "AI Engineer.", "Data Analyst.", "Deep Learning Researcher."];
         let phraseIndex = 0;
         let charIndex = 0;
@@ -395,7 +437,127 @@
             setTimeout(type, typeSpeed);
         }
 
-        // NEW: Fade-in on Scroll Logic (using Intersection Observer) and Metric Animation Trigger
+        // --- Neural Network Background Animation ---
+        
+        class Node {
+            constructor(x, y, canvas) {
+                this.x = x;
+                this.y = y;
+                this.canvas = canvas;
+                // Start with small, random velocity
+                this.vx = (Math.random() - 0.5) * 0.5; 
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = 2; // Node size
+            }
+
+            update() {
+                // Move the node
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off walls
+                if (this.x < 0 || this.x > this.canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > this.canvas.height) this.vy *= -1;
+
+                // Subtle velocity dampening/perturbation for a more organic feel
+                this.vx += (Math.random() - 0.5) * 0.05;
+                this.vy += (Math.random() - 0.5) * 0.05;
+                // Limit max speed
+                const maxSpeed = 0.5;
+                const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                if (speed > maxSpeed) {
+                    this.vx *= maxSpeed / speed;
+                    this.vy *= maxSpeed / speed;
+                }
+            }
+
+            draw(ctx) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                // Light gray fill for the node
+                ctx.fillStyle = '#c9d1d9'; 
+                ctx.fill();
+            }
+        }
+
+        function initNeuralNet() {
+            const canvas = document.getElementById('neural-net-bg');
+            const ctx = canvas.getContext('2d');
+            let nodes = [];
+            // UPDATED: Increased density
+            const numNodes = 75; // Increased from 50 to 75
+            const maxDistance = 180; // Increased max connection distance from 150
+            const accentColorRgb = '56, 189, 248'; // RGB for #38bdf8 (Sky Blue)
+
+            // Initialization: Create nodes randomly across the screen
+            function createNodes() {
+                nodes = [];
+                for (let i = 0; i < numNodes; i++) {
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height;
+                    nodes.push(new Node(x, y, canvas)); 
+                }
+            }
+
+            // Adjust canvas size on load and resize
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                // Re-initialize nodes on resize to scatter them correctly
+                createNodes(); 
+            }
+            window.addEventListener('resize', resizeCanvas);
+            // Initial call to set size and create nodes
+            resizeCanvas(); 
+
+            // Drawing the lines between nearby nodes
+            function drawConnections() {
+                for (let i = 0; i < nodes.length; i++) {
+                    for (let j = i + 1; j < nodes.length; j++) {
+                        const node1 = nodes[i];
+                        const node2 = nodes[j];
+
+                        const dx = node1.x - node2.x;
+                        const dy = node2.y - node1.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < maxDistance) {
+                            // Calculate opacity based on distance (closer = brighter)
+                            const opacity = 1 - (distance / maxDistance);
+
+                            ctx.beginPath();
+                            ctx.moveTo(node1.x, node1.y);
+                            ctx.lineTo(node2.x, node2.y);
+                            
+                            // Use the accent color with calculated opacity
+                            ctx.strokeStyle = `rgba(${accentColorRgb}, ${opacity * 0.8})`; 
+                            ctx.lineWidth = 0.8; // Line thickness
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            // Main animation loop
+            function animate() {
+                // IMPORTANT: Use clearRect to ensure the animated gradient background shows through completely
+                ctx.clearRect(0, 0, canvas.width, canvas.height); 
+                
+                drawConnections();
+                
+                nodes.forEach(node => {
+                    node.update();
+                    node.draw(ctx);
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            // Start the animation
+            animate();
+        }
+
+        // Fade-in on Scroll Logic (using Intersection Observer) and Metric Animation Trigger
         function animateMetrics(projectElement) {
             // Find all metric bars within the project card
             const metricBars = projectElement.querySelectorAll('.metric-bar');
@@ -417,9 +579,13 @@
 
                     // 2. Trigger metric animation if it's the projects section
                     if (entry.target.id === 'projects') {
-                        // We target the individual project card elements (the .card div)
-                        const projectCard1 = entry.target.querySelector('.grid > div:first-child');
-                        animateMetrics(projectCard1);
+                        // We target both project cards that have metrics
+                        const projectCard1 = entry.target.querySelector('#project-metrics-1').closest('.card');
+                        const projectCard2 = entry.target.querySelector('#project-metrics-2').closest('.card');
+                        
+                        // Only run animation if element exists
+                        if (projectCard1) animateMetrics(projectCard1);
+                        if (projectCard2) animateMetrics(projectCard2);
                     }
                     
                     // Stop observing once visible
@@ -437,7 +603,9 @@
         window.onload = function() {
             targetElement.style.width = '0';
             type();
-            // Since we use IntersectionObserver for sections, we only need to start the typewriter here.
+            
+            // Initialize Neural Network background animation
+            initNeuralNet();
         };
 
     </script>
