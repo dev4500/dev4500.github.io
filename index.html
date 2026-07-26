@@ -1,613 +1,1080 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
-    <title>Dev Batra | AIML Engineer Portfolio</title>
-    <!-- Load Tailwind CSS CDN -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description"
+        content="Dev Batra — AI/ML Engineer Portfolio. Specializing in Deep Learning, Generative AI, and intelligent system development.">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+    <title>Dev Batra | AI/ML Engineer</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Use Inter font -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0d1117; /* Dark background matching GitHub/VS Code themes */
-            color: #c9d1d9; /* Light text */
-            scroll-behavior: smooth;
-        }
-        .accent-color {
-            color: #38bdf8; /* Sky Blue accent for tech look */
-        }
-        .accent-bg {
-            background-color: #0369a1; /* Darker blue background */
-        }
-        .card {
-            background-color: #161b22;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(56, 189, 248, 0.2), 0 4px 6px -2px rgba(56, 189, 248, 0.1);
-        }
-        /* Custom styling for the typewriter cursor effect */
-        #typing-text {
-            border-right: 3px solid #38bdf8; /* Blinking cursor */
-            white-space: nowrap;
+            background: #040410;
+            color: #e0e6ed;
             overflow: hidden;
-            display: inline-block;
-            animation: typing 4s steps(40, end), blink-caret 0.75s step-end infinite;
-            width: 0; /* Starts hidden */
+            width: 100vw;
+            height: 100vh;
         }
 
-        /* Keyframes for typewriter effect */
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+        /* ════════════════════════════════════
+           GALAXY  —  multi-layer CSS nebula
+           ════════════════════════════════════ */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        /* Keyframes for blinking cursor */
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #38bdf8; }
+        body::before {
+            background:
+                /* Milky-way diagonal band */
+                linear-gradient(145deg, transparent 15%, rgba(90, 60, 180, 0.07) 30%, rgba(120, 80, 220, 0.10) 48%, rgba(90, 60, 180, 0.07) 66%, transparent 82%),
+                /* Large nebula clouds */
+                radial-gradient(ellipse 85% 65% at 12% 58%, rgba(130, 40, 220, 0.14) 0%, transparent 60%),
+                radial-gradient(ellipse 75% 55% at 88% 22%, rgba(0, 90, 240, 0.12) 0%, transparent 55%),
+                radial-gradient(ellipse 95% 75% at 50% 88%, rgba(0, 210, 255, 0.09) 0%, transparent 50%),
+                radial-gradient(ellipse 55% 45% at 72% 62%, rgba(200, 0, 255, 0.08) 0%, transparent 45%),
+                radial-gradient(ellipse 45% 35% at 22% 28%, rgba(255, 80, 120, 0.05) 0%, transparent 40%),
+                radial-gradient(ellipse 60% 50% at 40% 15%, rgba(60, 0, 180, 0.08) 0%, transparent 50%);
         }
-        
-        /* Futuristic Animated Gradient Background Layer (z-index: -3) */
-        .animated-bg {
+
+        body::after {
+            background:
+                radial-gradient(ellipse 65% 55% at 28% 18%, rgba(0, 160, 255, 0.07) 0%, transparent 50%),
+                radial-gradient(ellipse 45% 35% at 62% 42%, rgba(120, 0, 220, 0.06) 0%, transparent 45%),
+                radial-gradient(ellipse 55% 45% at 82% 78%, rgba(0, 200, 180, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse 40% 30% at 8% 82%, rgba(170, 50, 220, 0.07) 0%, transparent 40%),
+                radial-gradient(ellipse 50% 40% at 55% 65%, rgba(80, 40, 160, 0.05) 0%, transparent 45%),
+                /* Subtle warm patch */
+                radial-gradient(ellipse 35% 25% at 92% 55%, rgba(255, 150, 50, 0.035) 0%, transparent 40%);
+            animation: nebula-drift 22s ease-in-out infinite alternate;
+        }
+
+        @keyframes nebula-drift {
+            0% {
+                opacity: .65;
+                transform: scale(1) translate(0, 0);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.1) translate(18px, -12px);
+            }
+        }
+
+        /* Vignette */
+        #vignette {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 40%, rgba(4, 4, 16, 0.6) 100%);
+        }
+
+        .tech-mono {
+            font-family: 'Share Tech Mono', monospace
+        }
+
+        #canvas-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -3; /* Farthest back */
-            background: linear-gradient(-45deg, #0d1117, #0f283d, #161b22, #0f283d);
-            background-size: 400% 400%;
-            animation: gradient-shift 15s ease infinite;
-            opacity: 0.6;
+            z-index: 1;
+            touch-action: none
         }
 
-        @keyframes gradient-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* ── Loader ── */
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #040410;
+            display: flex;
+            align-items: center;
+            justify-content: center
         }
-        
-        /* Neural Network Canvas Layer (z-index: -2) */
-        #neural-net-bg {
+
+        @keyframes scan-line {
+            0% {
+                width: 0
+            }
+
+            50% {
+                width: 100%
+            }
+
+            100% {
+                width: 0
+            }
+        }
+
+        .scan-bar {
+            width: 120px;
+            height: 2px;
+            background: rgba(0, 240, 255, .1);
+            border-radius: 1px;
+            overflow: hidden;
+            margin-top: 12px
+        }
+
+        .scan-bar::after {
+            content: '';
+            display: block;
+            height: 100%;
+            background: #00f0ff;
+            animation: scan-line 1.5s ease-in-out infinite
+        }
+
+        /* ── Header ── */
+        .header-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2; /* Above the gradient, behind content */
-            opacity: 0.4; /* Subtle layer on top of the gradient */
-            background-color: transparent;
-            /* GLOW EFFECT: Added drop shadow filter to create a soft bloom */
-            filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.8));
+            right: 0;
+            z-index: 100;
+            padding: .75rem 1.5rem;
+            background: linear-gradient(to bottom, rgba(4, 4, 16, .92) 0%, rgba(4, 4, 16, .4) 70%, transparent 100%);
+            transition: opacity .3s
         }
 
-        /* Fade-in on Scroll Styling */
-        .fade-in-section {
+        @media(min-width:768px) {
+            .header-overlay {
+                padding: 1rem 2rem
+            }
+        }
+
+        .header-overlay.panel-open {
+            opacity: .3;
+            pointer-events: none
+        }
+
+        /* ── Panel ──
+             FIX: z-index 150 when active → above header (100) */
+        .content-panel {
+            position: fixed;
+            z-index: 50;
+            background: rgba(6, 6, 20, .92);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid rgba(0, 240, 255, .12);
+            overflow-y: auto;
+            overflow-x: hidden;
+            transition: transform .55s cubic-bezier(.16, 1, .3, 1), opacity .4s ease;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            pointer-events: none
         }
 
-        .fade-in-section.is-visible {
+        .content-panel.active {
             opacity: 1;
-            transform: translateY(0);
+            pointer-events: auto;
+            z-index: 150
         }
 
-        /* Project Metric Bar Styling */
-        .metric-bar-container {
-            height: 8px; /* Standard bar height */
-            width: 100%;
-            background-color: #2f343a; /* Dark track */
-            border-radius: 4px;
-            overflow: hidden;
+        @media(min-width:768px) {
+            .content-panel {
+                top: 0;
+                left: 0;
+                width: 44%;
+                max-width: 560px;
+                height: 100vh;
+                transform: translateX(-100%);
+                border-right: 1px solid rgba(0, 240, 255, .15);
+                padding: 2rem 2.5rem 3rem
+            }
+
+            .content-panel.active {
+                transform: translateX(0)
+            }
         }
-        .metric-bar {
+
+        @media(max-width:767px) {
+            .content-panel {
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 78vh;
+                border-top-left-radius: 1.25rem;
+                border-top-right-radius: 1.25rem;
+                transform: translateY(100%);
+                padding: 1rem 1.25rem 5rem;
+                border-top: 1px solid rgba(0, 240, 255, .2)
+            }
+
+            .content-panel.active {
+                transform: translateY(0)
+            }
+        }
+
+        .content-panel::-webkit-scrollbar {
+            width: 3px
+        }
+
+        .content-panel::-webkit-scrollbar-track {
+            background: transparent
+        }
+
+        .content-panel::-webkit-scrollbar-thumb {
+            background: rgba(0, 240, 255, .25);
+            border-radius: 2px
+        }
+
+        .glow-cyan {
+            text-shadow: 0 0 8px rgba(0, 240, 255, .5), 0 0 20px rgba(0, 240, 255, .25)
+        }
+
+        .glow-purple {
+            text-shadow: 0 0 8px rgba(189, 0, 255, .5), 0 0 20px rgba(189, 0, 255, .25)
+        }
+
+        .glow-green {
+            text-shadow: 0 0 8px rgba(57, 255, 20, .5), 0 0 20px rgba(57, 255, 20, .25)
+        }
+
+        /* ── Mobile Nav ── */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            background: rgba(4, 4, 16, .96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 240, 255, .15);
+            padding: .4rem 0 .25rem;
+            display: none
+        }
+
+        @media(max-width:767px) {
+            .mobile-nav {
+                display: flex
+            }
+        }
+
+        .mobile-nav-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: .35rem 0;
+            color: rgba(224, 230, 237, .4);
+            transition: color .3s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: .6rem
+        }
+
+        .mobile-nav-btn.active,
+        .mobile-nav-btn:hover {
+            color: #00f0ff
+        }
+
+        /* ── Close btn ── */
+        .close-btn {
+            position: sticky;
+            top: 0;
+            float: right;
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 240, 255, .3);
+            background: rgba(0, 240, 255, .1);
+            color: #00f0ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all .3s;
+            z-index: 10;
+            margin-bottom: .5rem
+        }
+
+        .close-btn:hover {
+            background: rgba(0, 240, 255, .25);
+            border-color: #00f0ff;
+            transform: scale(1.1)
+        }
+
+        .drag-handle {
+            width: 2.5rem;
+            height: .2rem;
+            background: rgba(255, 255, 255, .25);
+            border-radius: 2px;
+            margin: 0 auto .75rem
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: .2rem .6rem;
+            border: 1px solid rgba(0, 240, 255, .25);
+            border-radius: .2rem;
+            font-size: .65rem;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: #00f0ff;
+            margin-bottom: .75rem
+        }
+
+        .skill-tag {
+            display: inline-block;
+            padding: .3rem .65rem;
+            border-radius: 9999px;
+            font-size: .7rem;
+            border: 1px solid rgba(0, 240, 255, .18);
+            background: rgba(0, 240, 255, .04);
+            color: #00f0ff;
+            margin: .2rem;
+            transition: all .3s
+        }
+
+        .skill-tag:hover {
+            background: rgba(0, 240, 255, .12);
+            border-color: rgba(0, 240, 255, .4)
+        }
+
+        .project-card {
+            background: rgba(0, 240, 255, .02);
+            border: 1px solid rgba(0, 240, 255, .1);
+            border-radius: .75rem;
+            padding: 1.25rem;
+            transition: all .3s
+        }
+
+        .project-card:hover {
+            border-color: rgba(0, 240, 255, .25);
+            background: rgba(0, 240, 255, .05);
+            transform: translateY(-2px)
+        }
+
+        .metric-track {
+            height: 5px;
+            background: rgba(255, 255, 255, .04);
+            border-radius: 3px;
+            overflow: hidden
+        }
+
+        .metric-fill {
             height: 100%;
-            transition: width 1s ease-out; /* Animation for the bar fill */
-            width: 0; /* Start hidden for animation */
+            border-radius: 3px;
+            transition: width 1.2s cubic-bezier(.16, 1, .3, 1);
+            width: 0
+        }
+
+        .terminal {
+            background: rgba(4, 4, 16, .7);
+            border: 1px solid rgba(57, 255, 20, .2);
+            border-radius: .5rem;
+            font-family: 'Share Tech Mono', monospace;
+            padding: 1.25rem
+        }
+
+        .terminal-line::before {
+            content: '> ';
+            color: #39ff14
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                opacity: .55
+            }
+
+            50% {
+                opacity: 1
+            }
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 3s ease-in-out infinite
+        }
+
+        .footer-text {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 30;
+            text-align: center;
+            padding: .5rem;
+            color: rgba(255, 255, 255, .12);
+            font-size: .6rem
+        }
+
+        @media(max-width:767px) {
+            .footer-text {
+                display: none
+            }
         }
     </style>
 </head>
-<body class="antialiased">
 
-    <!-- 1. Animated Gradient Background Layer -->
-    <div class="animated-bg"></div>
-    
-    <!-- 2. Neural Network Canvas Background Layer (Fixed) -->
-    <canvas id="neural-net-bg"></canvas>
+<body>
 
-    <!-- Navigation Bar -->
-    <nav class="sticky top-0 z-50 bg-gray-900 bg-opacity-95 shadow-lg border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo/Name -->
-                <div class="flex-shrink-0">
-                    <a href="#" class="text-xl sm:text-2xl font-bold accent-color tracking-wider">/&lt;AI_ENG/&gt;</a>
-                </div>
-                <!-- Navigation Links - Added responsive font size and spacing -->
-                <div class="flex space-x-2 sm:space-x-4 text-sm sm:text-base">
-                    <a href="#about" class="text-gray-300 hover:text-white transition duration-150">About</a>
-                    <a href="#skills" class="text-gray-300 hover:text-white transition duration-150">Skills</a>
-                    <a href="#projects" class="text-gray-300 hover:text-white transition duration-150">Projects</a>
-                    <a href="#contact" class="text-gray-300 hover:text-white transition duration-150">Contact</a>
-                </div>
-            </div>
+    <!-- Vignette overlay -->
+    <div id="vignette"></div>
+
+    <div id="loader">
+        <div class="text-center">
+            <p class="tech-mono text-[#00f0ff] text-xs tracking-[0.25em] mb-1">INITIALIZING NEURAL INTERFACE</p>
+            <div class="scan-bar mx-auto"></div>
         </div>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <header class="header-overlay" id="header">
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="tech-mono text-base sm:text-lg text-[#00f0ff] glow-cyan tracking-wider cursor-pointer"
+                    onclick="closePanel()">/&lt;DEV_BATRA/&gt;</h1>
+                <p class="text-[10px] text-gray-500 tech-mono pulse-glow tracking-widest">AI / ML ENGINEER</p>
+            </div>
+            <nav class="hidden md:flex space-x-5">
+                <button onclick="openTab('about')"
+                    class="tech-mono text-xs text-gray-500 hover:text-[#00d4ff] transition-colors tracking-wider">ABOUT</button>
+                <button onclick="openTab('skills')"
+                    class="tech-mono text-xs text-gray-500 hover:text-[#ff2d78] transition-colors tracking-wider">SKILLS</button>
+                <button onclick="openTab('projects')"
+                    class="tech-mono text-xs text-gray-500 hover:text-[#00ff88] transition-colors tracking-wider">PROJECTS</button>
+                <button onclick="openTab('contact')"
+                    class="tech-mono text-xs text-gray-500 hover:text-[#ffaa00] transition-colors tracking-wider">CONTACT</button>
+            </nav>
+        </div>
+    </header>
+
+    <div id="hero-overlay" class="fixed inset-0 z-10 flex items-center justify-center pointer-events-none select-none">
+        <div class="text-center px-6">
+            <p class="tech-mono text-[#39ff14] text-[10px] sm:text-xs mb-2 tracking-[0.3em] glow-green">// PORTFOLIO</p>
+            <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-2 leading-tight">
+                <span class="text-[#00f0ff] glow-cyan">Dev</span> Batra
+            </h2>
+            <p class="text-gray-400 text-xs sm:text-sm mb-5">Product Analyst · AI Engineer · Kaggle Expert</p>
+            <p class="tech-mono text-[#bd00ff] text-[10px] sm:text-xs glow-purple tracking-wider">[ CLICK A NODE ·
+                EXPLORE THE NETWORK ]</p>
+        </div>
+    </div>
+
+    <div id="content-panel" class="content-panel">
+        <div class="drag-handle md:hidden"></div>
+        <button class="close-btn" onclick="closePanel()" aria-label="Close panel">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round">
+                <line x1="1" y1="1" x2="13" y2="13" />
+                <line x1="13" y1="1" x2="1" y2="13" />
+            </svg>
+        </button>
+        <div id="panel-content"></div>
+    </div>
+
+    <nav class="mobile-nav" id="mobile-nav">
+        <button class="mobile-nav-btn" data-tab="about" onclick="openTab('about')"><svg width="18" height="18"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 21v-1a6 6 0 0 1 12 0v1" />
+            </svg><span class="mt-0.5">ABOUT</span></button>
+        <button class="mobile-nav-btn" data-tab="skills" onclick="openTab('skills')"><svg width="18" height="18"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z" />
+            </svg><span class="mt-0.5">SKILLS</span></button>
+        <button class="mobile-nav-btn" data-tab="projects" onclick="openTab('projects')"><svg width="18" height="18"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg><span class="mt-0.5">PROJECTS</span></button>
+        <button class="mobile-nav-btn" data-tab="contact" onclick="openTab('contact')"><svg width="18" height="18"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 4h16v12H5.17L4 17.17V4z" />
+                <path d="M4 4l8 6 8-6" />
+            </svg><span class="mt-0.5">CONTACT</span></button>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"> <!-- z-10 ensures content is above backgrounds -->
-
-        <!-- 1. Hero Section -->
-        <section id="hero" class="py-20 md:py-32 flex flex-col items-center text-center">
-            <div class="mb-6">
-                <span class="text-sm font-medium px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full tracking-wider uppercase">
-                    Focused on Data and Intelligence
-                </span>
-            </div>
-            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-4">
-                Hi, I'm <span class="accent-color">Dev Batra</span>
-            </h1>
-            <p class="text-xl md:text-3xl text-gray-400 font-light mb-8 h-8">
-                <span id="typing-text">Machine Learning Engineer.</span>
-            </p>
-            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                <a href="#projects" class="inline-block px-8 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow-lg hover:bg-cyan-500 transition duration-300 w-full sm:w-auto">
-                    View Projects
-                </a>
-                <a href="#contact" class="inline-block px-8 py-3 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:bg-gray-800 transition duration-300 w-full sm:w-auto">
-                    Get In Touch
-                </a>
-            </div>
-        </section>
-
-        <!-- 2. About Me Section - Single column on mobile -->
-        <section id="about" class="py-16 border-t border-gray-800 fade-in-section">
-            <h2 class="text-3xl sm:text-4xl font-bold mb-8 text-center accent-color">About Me</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center card p-6 sm:p-8 rounded-xl shadow-2xl">
-                <div class="md:col-span-2 order-2 md:order-1"> <!-- Text first on mobile -->
-                    <p class="text-base sm:text-lg text-gray-300 mb-4">
-                        I am an <b>AI Product Developer</b> specializing in building and deploying AI/ML Solutions. As a MCA student, my focus is on full-stack development of intelligent systems. This involves developing end-to-end solutions, leveraging advanced techniques like <b>Deep Learning and Generative AI</b>, and deploying scalable applications using modern programming frameworks.
-                    </p>
-                    <p class="text-base sm:text-lg text-gray-300 mb-4">
-                        My experience includes developing a full-stack <b>AI-Powered Report Generator</b>, applying CNNs for fracture detection, and using ML to solve real-world problems in data analysis and forecasting during my roles with organizations like <b>IBM and Omdena</b>.
-                    </p>
-                    <p class="text-base sm:text-lg text-gray-300">
-                        I currently hold an <b>Expert Rank (694) on Kaggle</b>, demonstrating strong applied skills in competitive ML. I am focused on building AI-driven solutions that blend innovation, efficiency, and real-world impact.
-                    </p>
-                </div>
-                <!-- Profile Image Section -->
-                <div class="flex justify-center md:justify-end order-1 md:order-2 mb-6 md:mb-0">
-                    <a href="https://linkedin.com/in/devbatra" target="_blank" 
-                       class="block group cursor-pointer w-36 h-36 sm:w-48 sm:h-48 rounded-full border-4 border-cyan-600/50 p-2 transition duration-300 hover:border-cyan-400 hover:shadow-lg">
-                        <img src="devimg.jpeg" 
-                             alt="Profile Photo of Dev Batra" 
-                             class="w-full h-full object-cover rounded-full"
-                             onerror="this.onerror=null; this.src='https://placehold.co/192x192/161B22/C9D1D9?text=Error: Public+URL+Required';"
-                        >
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. Core Skills Section - Collapses to 1 column on mobile, 2 on tablet, 4 on desktop -->
-        <section id="skills" class="py-16 border-t border-gray-800 fade-in-section">
-            <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center accent-color">Core Skills & Tech Stack</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-
-                <!-- Skill Block 1: ML Frameworks -->
-                <div class="card p-6 rounded-xl border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">ML & AI Tools</h3>
-                    <ul class="list-none space-y-2 text-gray-300">
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> PyTorch & TensorFlow/Keras</li>
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Scikit-learn, XGBoost</li>
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Generative AI / LLMs (T5)</li>
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Hyperparameter Tuning</li>
-                    </ul>
-                </div>
-
-                <!-- Skill Block 2: Languages & Data -->
-                <div class="card p-6 rounded-xl border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Programming & Data</h3>
-                    <ul class="list-none space-y-2 text-gray-300">
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Python (Advanced)</li>
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Pandas, NumPy, Matplotlib</li>
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> SQL / Data Preprocessing (EDA)</li>
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> R (Basic)</li>
-                    </ul>
-                </div>
-
-                <!-- Skill Block 3: Development & Tools -->
-                <div class="card p-6 rounded-xl border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Development & MLOps</h3>
-                    <ul class="list-none space-y-2 text-gray-300">
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Flask, FastAPI (API Services)</li>
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Docker / Kubernetes</li>
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Jupyter, Google Colab</li>
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Git, CI/CD Pipelines</li>
-                    </ul>
-                </div>
-
-                <!-- Skill Block 4: Core Domains -->
-                <div class="card p-6 rounded-xl border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-3 text-cyan-400">Core Domains</h3>
-                    <ul class="list-none space-y-2 text-gray-300">
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Gen AI & LLMs</li>
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Machine Learning</li>
-                        <li class="flex items-center"><span class="accent-color mr-2">&bull;</span> Python Development</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. Projects Section - Collapses to 1 column on mobile -->
-        <section id="projects" class="py-16 border-t border-gray-800 fade-in-section">
-            <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center accent-color">Featured Projects</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1: AI Powered Report Generator (NLP/Generative AI) -->
-                <div class="card p-6 rounded-xl border border-cyan-600/30">
-                    <div class="text-4xl mb-4 accent-color">
-                        <!-- Inline SVG Icon for Report/Document -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-2 text-white">AI-Powered Report Generator</h3>
-                    <p class="text-gray-400 mb-4 text-sm">
-                        Architected a <b>Full-Stack AI Product</b> (ReactJS/Tailwind frontend, <b>FastAPI</b> backend) using an <b>LLM-based AI agent</b> to automate business report generation, KPI visualization, and structured <b>PowerPoint</b> report building from raw data.
-                    </p>
-
-                    <!-- Animated Metric Visualization -->
-                    <div class="space-y-3 mb-4 text-sm font-mono" id="project-metrics-1" data-f1="0.92" data-precision="0.95" data-recall="0.88">
-                        <p class="flex justify-between items-center text-cyan-300">
-                            Automation Rate <span class="text-white">92%</span>
-                        </p>
-                        <div class="metric-bar-container"><div class="metric-bar bg-cyan-600" data-value="0.92"></div></div>
-                        
-                        <p class="flex justify-between items-center text-gray-400">
-                            Report Fidelity <span class="text-white">95%</span>
-                        </p>
-                        <div class="metric-bar-container"><div class="metric-bar bg-blue-500" data-value="0.95"></div></div>
-                        
-                        <p class="flex justify-between items-center text-gray-400">
-                            Deployment Readiness <span class="text-white">88%</span>
-                        </p>
-                        <div class="metric-bar-container"><div class="metric-bar bg-teal-500" data-value="0.88"></div></div>
-                    </div>
-                    
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="text-xs px-2 py-1 rounded-full bg-blue-900 text-blue-300">Generative AI</span>
-                        <span class="text-xs px-2 py-1 rounded-full bg-green-900 text-green-300">FastAPI</span>
-                        <span class="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-300">LLMs/T5</span>
-                    </div>
-                    <a href="#" class="inline-block text-cyan-400 hover:text-cyan-300 font-medium"> (Closed Source)</a>
-                </div>
-
-                <!-- Project 2: Fracture Detection using CNN (Computer Vision) - UPDATED WITH ACCURACY BARS -->
-                <div class="card p-6 rounded-xl border border-cyan-600/30">
-                    <div class="text-4xl mb-4 accent-color">
-                        <!-- Inline SVG Icon for Vision/Medical Imaging -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-2 text-white">Medical Image Fracture Detection</h3>
-                    
-                    <p class="text-gray-400 mb-4 text-sm">
-                        Developed a CNN-based model using advanced architectures to classify bone fractures from X-ray images, with the following classification accuracies:
-                    </p>
-
-                    <!-- Animated Metric Visualization for Model Accuracies -->
-                    <div class="space-y-3 mb-4 text-sm font-mono" id="project-metrics-2">
-                        <!-- DenseNet (78.4%) -->
-                        <p class="flex justify-between items-center text-cyan-300">
-                            DenseNet Accuracy <span class="text-white">78.4%</span>
-                        </p>
-                        <!-- Note: Data-value is 0.784 for the JS animation -->
-                        <div class="metric-bar-container"><div class="metric-bar bg-green-500" data-value="0.784"></div></div>
-                        
-                        <!-- MobileNet (66.0%) -->
-                        <p class="flex justify-between items-center text-gray-400">
-                            MobileNet Accuracy <span class="text-white">66.0%</span>
-                        </p>
-                        <!-- Note: Data-value is 0.660 for the JS animation -->
-                        <div class="metric-bar-container"><div class="metric-bar bg-yellow-500" data-value="0.660"></div></div>
-                        
-                        <!-- ResNet 50 (54.0%) -->
-                        <p class="flex justify-between items-center text-gray-400">
-                            ResNet 50 Accuracy <span class="text-white">54.0%</span>
-                        </p>
-                        <!-- Note: Data-value is 0.540 for the JS animation -->
-                        <div class="metric-bar-container"><div class="metric-bar bg-red-500" data-value="0.540"></div></div>
-                    </div>
-                    <!-- END UPDATED METRICS -->
-
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="text-xs px-2 py-1 rounded-full bg-blue-900 text-blue-300">Computer Vision</span>
-                        <span class="text-xs px-2 py-1 rounded-full bg-green-900 text-green-300">CNN/ResNet</span>
-                        <span class="text-xs px-2 py-1 rounded-full bg-purple-900 text-purple-300">Flask Deployment</span>
-                    </div>
-                    <a href="https://www.kaggle.com/code/devbatrax/fracture-detection-cnn-resnet-densenet-mobilenet" class="inline-block text-cyan-400 hover:text-cyan-300 font-medium">View Code & Details &rarr;</a>
-                </div>
-
-                <!-- Project 3: Audio to Sign Language Conversion System (Multi-Modal AI) -->
-                <div class="card p-6 rounded-xl border border-cyan-600/30">
-                    <div class="text-4xl mb-4 accent-color">
-                        <!-- Inline SVG Icon for Speech/Communication -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-2 text-white">Audio-to-Sign Language Conversion</h3>
-                    <p class="text-gray-400 mb-4 text-sm">
-                        Engineered an accessibility-focused system using <b>NLP, Google API, and OpenCV</b> to convert spoken language (audio input) into corresponding sign language gestures, bridging communication gaps for people with hearing impairments.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="text-xs px-2 py-1 rounded-full bg-yellow-900 text-yellow-300">Multi-modal AI</span>
-                        <span class="text-xs px-2 py-1 rounded-full bg-red-900 text-red-300">NLP/OpenCV</span>
-                        <span class="text-xs px-2 py-1 rounded-full bg-teal-900 text-teal-300">Accessibility Tech</span>
-                    </div>
-                    <a href="https://github.com/dev4500/A2SL" class="inline-block text-cyan-400 hover:text-cyan-300 font-medium">View Code & Details &rarr;</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. Contact Section - Added responsive stacking for mobile -->
-        <section id="contact" class="py-16 border-t border-gray-800 fade-in-section">
-            <h2 class="text-3xl sm:text-4xl font-bold mb-8 text-center accent-color">Get in Touch</h2>
-            <div class="max-w-xl mx-auto text-center card p-8 sm:p-10 rounded-xl">
-                <p class="text-base sm:text-lg text-gray-300 mb-6">
-                    If you have a challenging AI/ML project, a data science question, or just want to connect, feel free to reach out. I'm always looking for innovative collaborations.
-                </p>
-                <!-- RESPONSIVENESS FIX: flex-col on mobile, flex-row on medium screens -->
-                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-x-6 md:space-y-0">
-                    <!-- Email -->
-                    <a href="mailto:dev.batra@hotmail.com" class="flex items-center justify-center space-x-2 text-gray-400 hover:text-cyan-400 transition duration-300">
-                        <!-- SVG for Email -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 4v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7"/></svg>
-                        <span>dev.batra@hotmail.com</span>
-                    </a>
-                    <!-- LinkedIn -->
-                    <a href="https://linkedin.com/in/devbatra" target="_blank" class="flex items-center justify-center space-x-2 text-gray-400 hover:text-cyan-400 transition duration-300">
-                        <!-- SVG for LinkedIn -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2V9z"/><circle cx="4" cy="4" r="2"/></svg>
-                        <span>LinkedIn</span>
-                    </a>
-                    <!-- Kaggle -->
-                    <a href="https://kaggle.com/devbatrax" target="_blank" class="flex items-center justify-center space-x-2 text-gray-400 hover:text-cyan-400 transition duration-300">
-                        <!-- Using a generic achievement/trophy SVG for Kaggle Expert badge -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 448 512" fill="currentColor">
-                            <path d="M149.3 275.3l-1.3 2.7c-5.8 12.1-17.7 20-30.9 20H80c-26.5 0-48-21.5-48-48V256c0-26.5 21.5-48 48-48h37.1c13.2 0 25.1 7.9 30.9 20l1.3 2.7 75 150.1c11.7 23.4 35.8 38.9 61.3 38.9H400c26.5 0 48-21.5 48-48V352c0-26.5-21.5-48-48-48h-37.1c-13.2 0-25.1-7.9-30.9-20l-1.3-2.7L256 160.7l1.3-2.7c5.8-12.1 17.7-20 30.9-20H400c26.5 0 48-21.5 48-48V64c0-26.5-21.5-48-48-48H80c-26.5 0-48 21.5-48 48v48c0 26.5 21.5 48 48 48h37.1c13.2 0 25.1 7.9 30.9 20l1.3 2.7L256 351.3l-106.7-76z"/>
-                        </svg>
-                        <span>Kaggle</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-800 mt-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm">
-            &copy; 2025 Dev Batra | AI Engineer Portfolio.
-        </div>
-    </footer>
+    <div class="footer-text tech-mono">&copy; 2026 Dev Batra &mdash; Product Analyst &amp; AI Engineer Portfolio</div>
 
     <script>
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Typewriter effect logic
-        const targetElement = document.getElementById('typing-text');
-        const phrases = ["Machine Learning Engineer.", "AI Engineer.", "Data Analyst.", "Deep Learning Researcher."];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-
-        function type() {
-            const currentPhrase = phrases[phraseIndex];
-            if (isDeleting) {
-                targetElement.style.width = ((currentPhrase.length - charIndex) / currentPhrase.length) * 100 + '%';
-                charIndex--;
-            } else {
-                targetElement.style.width = (charIndex / currentPhrase.length) * 100 + '%';
-                charIndex++;
-            }
-
-            targetElement.textContent = currentPhrase;
-
-            let typeSpeed = isDeleting ? 75 : 150;
-
-            if (!isDeleting && charIndex > currentPhrase.length) {
-                typeSpeed = 2000;
-                isDeleting = true;
-            } else if (isDeleting && charIndex < 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typeSpeed = 500;
-            }
-
-            setTimeout(type, typeSpeed);
-        }
-
-        // --- Neural Network Background Animation ---
-        
-        class Node {
-            constructor(x, y, canvas) {
-                this.x = x;
-                this.y = y;
-                this.canvas = canvas;
-                // Start with small, random velocity
-                this.vx = (Math.random() - 0.5) * 0.5; 
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = 2; // Node size
-            }
-
-            update() {
-                // Move the node
-                this.x += this.vx;
-                this.y += this.vy;
-
-                // Bounce off walls
-                if (this.x < 0 || this.x > this.canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > this.canvas.height) this.vy *= -1;
-
-                // Subtle velocity dampening/perturbation for a more organic feel
-                this.vx += (Math.random() - 0.5) * 0.05;
-                this.vy += (Math.random() - 0.5) * 0.05;
-                // Limit max speed
-                const maxSpeed = 0.5;
-                const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-                if (speed > maxSpeed) {
-                    this.vx *= maxSpeed / speed;
-                    this.vy *= maxSpeed / speed;
-                }
-            }
-
-            draw(ctx) {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                // Light gray fill for the node
-                ctx.fillStyle = '#c9d1d9'; 
-                ctx.fill();
-            }
-        }
-
-        function initNeuralNet() {
-            const canvas = document.getElementById('neural-net-bg');
-            const ctx = canvas.getContext('2d');
-            let nodes = [];
-            // UPDATED: Increased density
-            const numNodes = 75; // Increased from 50 to 75
-            const maxDistance = 180; // Increased max connection distance from 150
-            const accentColorRgb = '56, 189, 248'; // RGB for #38bdf8 (Sky Blue)
-
-            // Initialization: Create nodes randomly across the screen
-            function createNodes() {
-                nodes = [];
-                for (let i = 0; i < numNodes; i++) {
-                    const x = Math.random() * canvas.width;
-                    const y = Math.random() * canvas.height;
-                    nodes.push(new Node(x, y, canvas)); 
-                }
-            }
-
-            // Adjust canvas size on load and resize
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                // Re-initialize nodes on resize to scatter them correctly
-                createNodes(); 
-            }
-            window.addEventListener('resize', resizeCanvas);
-            // Initial call to set size and create nodes
-            resizeCanvas(); 
-
-            // Drawing the lines between nearby nodes
-            function drawConnections() {
-                for (let i = 0; i < nodes.length; i++) {
-                    for (let j = i + 1; j < nodes.length; j++) {
-                        const node1 = nodes[i];
-                        const node2 = nodes[j];
-
-                        const dx = node1.x - node2.x;
-                        const dy = node2.y - node1.y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-
-                        if (distance < maxDistance) {
-                            // Calculate opacity based on distance (closer = brighter)
-                            const opacity = 1 - (distance / maxDistance);
-
-                            ctx.beginPath();
-                            ctx.moveTo(node1.x, node1.y);
-                            ctx.lineTo(node2.x, node2.y);
-                            
-                            // Use the accent color with calculated opacity
-                            ctx.strokeStyle = `rgba(${accentColorRgb}, ${opacity * 0.8})`; 
-                            ctx.lineWidth = 0.8; // Line thickness
-                            ctx.stroke();
-                        }
-                    }
-                }
-            }
-
-            // Main animation loop
-            function animate() {
-                // IMPORTANT: Use clearRect to ensure the animated gradient background shows through completely
-                ctx.clearRect(0, 0, canvas.width, canvas.height); 
-                
-                drawConnections();
-                
-                nodes.forEach(node => {
-                    node.update();
-                    node.draw(ctx);
-                });
-
-                requestAnimationFrame(animate);
-            }
-
-            // Start the animation
-            animate();
-        }
-
-        // Fade-in on Scroll Logic (using Intersection Observer) and Metric Animation Trigger
-        function animateMetrics(projectElement) {
-            // Find all metric bars within the project card
-            const metricBars = projectElement.querySelectorAll('.metric-bar');
-            
-            metricBars.forEach(bar => {
-                const value = parseFloat(bar.dataset.value); // Get value from data-value attribute
-                if (!isNaN(value)) {
-                    // Set the width for the transition to occur
-                    bar.style.width = `${value * 100}%`;
-                }
-            });
-        }
-        
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // 1. Trigger section fade-in
-                    entry.target.classList.add('is-visible');
-
-                    // 2. Trigger metric animation if it's the projects section
-                    if (entry.target.id === 'projects') {
-                        // We target both project cards that have metrics
-                        const projectCard1 = entry.target.querySelector('#project-metrics-1').closest('.card');
-                        const projectCard2 = entry.target.querySelector('#project-metrics-2').closest('.card');
-                        
-                        // Only run animation if element exists
-                        if (projectCard1) animateMetrics(projectCard1);
-                        if (projectCard2) animateMetrics(projectCard2);
-                    }
-                    
-                    // Stop observing once visible
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
-
-        // Attach the observer to all sections that should fade in
-        document.querySelectorAll('.fade-in-section').forEach(section => {
-            observer.observe(section);
-        });
-
-
-        window.onload = function() {
-            targetElement.style.width = '0';
-            type();
-            
-            // Initialize Neural Network background animation
-            initNeuralNet();
+        // ═══════════════════════════════════════════════
+        // TAB CONTENT
+        // ═══════════════════════════════════════════════
+        const tabContent = {
+            about: `
+        <div class="section-label tech-mono">// ABOUT</div>
+        <div class="flex flex-row items-center gap-6 mb-5">
+            <a href="https://linkedin.com/in/devbatra" target="_blank" rel="noopener" class="shrink-0 relative group block">
+                <div class="absolute inset-0 bg-[#00d4ff]/30 rounded-full blur-md group-hover:bg-[#00d4ff]/60 transition-colors duration-500"></div>
+                <img src="devimg2.jpeg" alt="Dev Batra" class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-[#00d4ff]/50 z-10" onerror="this.src='https://placehold.co/192x192/161B22/C9D1D9?text=DB';">
+            </a>
+            <div>
+                <h2 class="text-xl sm:text-2xl font-bold text-white mb-1">About <span class="text-[#00d4ff]">Me</span></h2>
+                <p class="text-gray-300 text-sm">Product Analyst · AI Engineer</p>
+            </div>
+        </div>
+        <div class="space-y-3.5 text-gray-300 text-sm leading-relaxed">
+            <p>Product Analyst with hands-on experience in <span class="text-[#ff2d78] font-semibold">Machine Learning, Computer Vision, and Generative AI</span>, focused on building AI-driven solutions for real-world business problems. Currently researching and developing AI-powered features for a Warehouse Management System at <span class="text-[#00d4ff] font-semibold">Stackbox</span>.</p>
+            <p>Previously trained and deployed high-performance <span class="text-white font-semibold">Computer Vision models</span> for retail AI at Constems-AI, and architected a full-stack <span class="text-[#00ff88] font-semibold">AI-Powered Report Generator</span> integrating LLMs for automated business insights and PowerPoint generation.</p>
+            <p>Skilled in developing scalable ML pipelines, optimizing model performance, and translating data into actionable insights using Python. Holds an <span class="text-[#ffaa00] font-semibold">Expert Rank on Kaggle</span>, demonstrating strong applied machine learning and problem-solving skills.</p>
+        </div>
+        <div class="mt-5">
+            <h3 class="tech-mono text-[#00d4ff] text-xs mb-3 tracking-wider">EXPERIENCE</h3>
+            <div class="space-y-3">
+                <div class="p-3 rounded-lg border border-[#00d4ff]/10 bg-[#00d4ff]/3">
+                    <div class="flex justify-between items-start mb-1">
+                        <span class="text-white text-xs font-semibold">Product Analyst — Stackbox</span>
+                        <span class="tech-mono text-[#00d4ff] text-[10px]">Jun 2026–Present</span>
+                    </div>
+                    <p class="text-gray-400 text-[11px] leading-relaxed">Researching, developing, and evaluating AI-powered features for a Warehouse Management System, collaborating with engineering teams to deliver production-ready capabilities.</p>
+                </div>
+                <div class="p-3 rounded-lg border border-[#ff2d78]/10 bg-[#ff2d78]/3">
+                    <div class="flex justify-between items-start mb-1">
+                        <span class="text-white text-xs font-semibold">AI Engineer Intern — Constems-AI</span>
+                        <span class="tech-mono text-[#ff2d78] text-[10px]">Jan 2026–May 2026</span>
+                    </div>
+                    <p class="text-gray-400 text-[11px] leading-relaxed">Trained and deployed high-performance Computer Vision models for retail AI applications. Built scalable ML pipelines and improved model accuracy through hyperparameter tuning.</p>
+                </div>
+                <div class="p-3 rounded-lg border border-[#00ff88]/10 bg-[#00ff88]/3">
+                    <div class="flex justify-between items-start mb-1">
+                        <span class="text-white text-xs font-semibold">AI Product Developer — Independent</span>
+                        <span class="tech-mono text-[#00ff88] text-[10px]">Jul 2025–Jan 2026</span>
+                    </div>
+                    <p class="text-gray-400 text-[11px] leading-relaxed">Designed and developed an AI product integrating Generative AI and LLMs to deliver personalized insights and automate business report generation with end-to-end data pipelines.</p>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 flex flex-wrap gap-2.5">
+            <div class="flex items-center space-x-2 px-3 py-1.5 rounded-lg border border-[#00d4ff]/15 bg-[#00d4ff]/5"><span class="text-sm">🎓</span><span class="text-xs text-gray-300">MCA — J.C. Bose University</span></div>
+            <div class="flex items-center space-x-2 px-3 py-1.5 rounded-lg border border-[#ffaa00]/15 bg-[#ffaa00]/5"><span class="text-sm">🏆</span><span class="text-xs text-gray-300">Kaggle Expert</span></div>
+            <div class="flex items-center space-x-2 px-3 py-1.5 rounded-lg border border-[#ff2d78]/15 bg-[#ff2d78]/5"><span class="text-sm">🤖</span><span class="text-xs text-gray-300">Product Analyst @ Stackbox</span></div>
+        </div>`,
+            skills: `
+        <div class="section-label tech-mono" style="border-color:rgba(255,45,120,.25);color:#ff2d78">// SKILLS</div>
+        <h2 class="text-xl sm:text-2xl font-bold text-white mb-5">Core <span class="text-[#ff2d78]">Skills</span> &amp; Tech Stack</h2>
+        <div class="space-y-5">
+            <div><h3 class="tech-mono text-[#00d4ff] text-xs mb-2 tracking-wider">ML &amp; AI</h3><div class="flex flex-wrap"><span class="skill-tag">PyTorch</span><span class="skill-tag">TensorFlow / Keras</span><span class="skill-tag">Scikit-learn</span><span class="skill-tag">XGBoost</span><span class="skill-tag">LLMs / Generative AI</span><span class="skill-tag">CNNs / Transfer Learning</span><span class="skill-tag">Hyperparameter Tuning</span><span class="skill-tag">Model Optimization</span></div></div>
+            <div><h3 class="tech-mono text-[#ff2d78] text-xs mb-2 tracking-wider">COMPUTER VISION</h3><div class="flex flex-wrap"><span class="skill-tag" style="border-color:rgba(255,45,120,.18);color:#ff2d78;background:rgba(255,45,120,.04)">ResNet</span><span class="skill-tag" style="border-color:rgba(255,45,120,.18);color:#ff2d78;background:rgba(255,45,120,.04)">DinoV2</span><span class="skill-tag" style="border-color:rgba(255,45,120,.18);color:#ff2d78;background:rgba(255,45,120,.04)">CLIPSeg</span><span class="skill-tag" style="border-color:rgba(255,45,120,.18);color:#ff2d78;background:rgba(255,45,120,.04)">OpenCV</span><span class="skill-tag" style="border-color:rgba(255,45,120,.18);color:#ff2d78;background:rgba(255,45,120,.04)">FAISS</span><span class="skill-tag" style="border-color:rgba(255,45,120,.18);color:#ff2d78;background:rgba(255,45,120,.04)">Feature Engineering</span></div></div>
+            <div><h3 class="tech-mono text-[#00ff88] text-xs mb-2 tracking-wider">PROGRAMMING &amp; DATA</h3><div class="flex flex-wrap"><span class="skill-tag" style="border-color:rgba(0,255,136,.18);color:#00ff88;background:rgba(0,255,136,.04)">Python</span><span class="skill-tag" style="border-color:rgba(0,255,136,.18);color:#00ff88;background:rgba(0,255,136,.04)">Pandas</span><span class="skill-tag" style="border-color:rgba(0,255,136,.18);color:#00ff88;background:rgba(0,255,136,.04)">NumPy</span><span class="skill-tag" style="border-color:rgba(0,255,136,.18);color:#00ff88;background:rgba(0,255,136,.04)">SQL</span><span class="skill-tag" style="border-color:rgba(0,255,136,.18);color:#00ff88;background:rgba(0,255,136,.04)">EDA &amp; Statistical Analysis</span><span class="skill-tag" style="border-color:rgba(0,255,136,.18);color:#00ff88;background:rgba(0,255,136,.04)">Seaborn / Matplotlib</span></div></div>
+            <div><h3 class="tech-mono text-[#ffaa00] text-xs mb-2 tracking-wider">TOOLS &amp; PLATFORMS</h3><div class="flex flex-wrap"><span class="skill-tag" style="border-color:rgba(255,170,0,.15);color:#ffaa00;background:rgba(255,170,0,.04)">Flask</span><span class="skill-tag" style="border-color:rgba(255,170,0,.15);color:#ffaa00;background:rgba(255,170,0,.04)">FastAPI</span><span class="skill-tag" style="border-color:rgba(255,170,0,.15);color:#ffaa00;background:rgba(255,170,0,.04)">AWS</span><span class="skill-tag" style="border-color:rgba(255,170,0,.15);color:#ffaa00;background:rgba(255,170,0,.04)">Git / GitHub</span><span class="skill-tag" style="border-color:rgba(255,170,0,.15);color:#ffaa00;background:rgba(255,170,0,.04)">Jupyter / Colab</span><span class="skill-tag" style="border-color:rgba(255,170,0,.15);color:#ffaa00;background:rgba(255,170,0,.04)">Power BI</span></div></div>
+        </div>`,
+            projects: `
+        <div class="section-label tech-mono" style="border-color:rgba(0,255,136,.25);color:#00ff88">// PROJECTS</div>
+        <h2 class="text-xl sm:text-2xl font-bold text-white mb-5">Featured <span class="text-[#00ff88]">Projects</span></h2>
+        <div class="space-y-4">
+            <div class="project-card">
+                <div class="flex items-center space-x-2 mb-1.5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg><h3 class="text-base font-semibold text-white">AI-Powered Report Generator</h3></div>
+                <p class="text-gray-400 text-xs mb-3 leading-relaxed">Architected a Full-Stack AI Product with a ReactJS/Tailwind CSS frontend and FastAPI (Python) backend. Integrated an LLM-based AI agent to generate performance insights and auto-build structured PowerPoint reports from raw data pipelines.</p>
+                <div class="space-y-1.5 mb-3">
+                    <div class="flex justify-between text-[10px] tech-mono"><span class="text-[#00d4ff]">Automation Rate</span><span class="text-white">92%</span></div><div class="metric-track"><div class="metric-fill bg-[#00d4ff]" data-value="92"></div></div>
+                    <div class="flex justify-between text-[10px] tech-mono"><span class="text-gray-500">Report Fidelity</span><span class="text-white">95%</span></div><div class="metric-track"><div class="metric-fill bg-[#ff2d78]" data-value="95"></div></div>
+                    <div class="flex justify-between text-[10px] tech-mono"><span class="text-gray-500">Pipeline Coverage</span><span class="text-white">88%</span></div><div class="metric-track"><div class="metric-fill bg-[#00ff88]" data-value="88"></div></div>
+                </div>
+                <div class="flex flex-wrap gap-1.5"><span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-900/40 text-blue-300">Generative AI / LLMs</span><span class="text-[10px] px-2 py-0.5 rounded-full bg-green-900/40 text-green-300">FastAPI</span><span class="text-[10px] px-2 py-0.5 rounded-full bg-purple-900/40 text-purple-300">ReactJS</span><span class="text-[10px] px-2 py-0.5 rounded-full bg-gray-700/40 text-gray-300">Pandas</span></div>
+                <p class="text-[10px] text-gray-600 mt-2 tech-mono">(Closed Source)</p>
+            </div>
+            <div class="project-card">
+                <div class="flex items-center space-x-2 mb-1.5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff2d78" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M8 12h8"/><path d="M12 8l4 4-4 4"/></svg><h3 class="text-base font-semibold text-white">Zero-Shot SKU Recognition Pipeline</h3></div>
+                <p class="text-gray-400 text-xs mb-3 leading-relaxed">Architected a cascaded zero-shot SKU recognition system using DINOv2 (ViT-L/16) and FAISS, enabling scalable identification of 1,800+ SKUs across 150+ brands via a two-stage pipeline (Brand → SKU). Improved retrieval precision using statistical rejection (µ + 4σ) and K-means-based multi-prototype indexing.</p>
+                <div class="space-y-1.5 mb-3">
+                    <div class="flex justify-between text-[10px] tech-mono"><span class="text-[#ff2d78]">SKUs Covered</span><span class="text-white">1,800+</span></div><div class="metric-track"><div class="metric-fill bg-[#ff2d78]" data-value="90"></div></div>
+                    <div class="flex justify-between text-[10px] tech-mono"><span class="text-[#ffaa00]">Brands Indexed</span><span class="text-white">150+</span></div><div class="metric-track"><div class="metric-fill bg-[#ffaa00]" data-value="75"></div></div>
+                    <div class="flex justify-between text-[10px] tech-mono"><span class="text-[#00d4ff]">Pipeline Stages</span><span class="text-white">2-Stage</span></div><div class="metric-track"><div class="metric-fill bg-[#00d4ff]" data-value="100"></div></div>
+                </div>
+                <div class="flex flex-wrap gap-1.5"><span class="text-[10px] px-2 py-0.5 rounded-full bg-pink-900/40 text-pink-300">DINOv2 / ViT-L</span><span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-900/40 text-blue-300">FAISS</span><span class="text-[10px] px-2 py-0.5 rounded-full bg-yellow-900/40 text-yellow-300">Computer Vision</span><span class="text-[10px] px-2 py-0.5 rounded-full bg-gray-700/40 text-gray-300">Zero-Shot</span></div>
+            </div>
+            <div class="project-card">
+                <div class="flex items-center space-x-2 mb-1.5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ff88" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg><h3 class="text-base font-semibold text-white">Fracture Detection using CNNs</h3></div>
+                <p class="text-gray-400 text-xs mb-3 leading-relaxed">Developed a CNN-based model using ResNet50, DenseNet, and MobileNet to classify bone fractures from X-ray images. Built a Flask web application for real-time image upload and fracture prediction.</p>
+                <div class="space-y-1.5 mb-3">
+                    <div class="flex justify-between text-[10px] tech-mono"><span class="text-[#00ff88]">DenseNet</span><span class="text-white">78.4%</span></div><div class="metric-track"><div class="metric-fill bg-[#00ff88]" data-value="78.4"></div></div>
+                    <div class="flex justify-between text-[10px] tech-mono"><span class="text-[#ffaa00]">MobileNet</span><span class="text-white">66.0%</span></div><div class="metric-track"><div class="metric-fill bg-[#ffaa00]" data-value="66"></div></div>
+                    <div class="flex justify-between text-[10px] tech-mono"><span class="text-[#ff2d78]">ResNet50</span><span class="text-white">54.0%</span></div><div class="metric-track"><div class="metric-fill bg-[#ff2d78]" data-value="54"></div></div>
+                </div>
+                <div class="flex flex-wrap gap-1.5"><span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-900/40 text-blue-300">Computer Vision</span><span class="text-[10px] px-2 py-0.5 rounded-full bg-green-900/40 text-green-300">TensorFlow</span><span class="text-[10px] px-2 py-0.5 rounded-full bg-purple-900/40 text-purple-300">Flask</span></div>
+                <a href="https://www.kaggle.com/code/devbatrax/fracture-detection-cnn-resnet-densenet-mobilenet" target="_blank" rel="noopener" class="inline-block mt-2 text-[#00d4ff] text-xs hover:underline tech-mono">View Code &rarr;</a>
+            </div>
+        </div>`,
+            contact: `
+        <div class="section-label tech-mono" style="border-color:rgba(255,170,0,.25);color:#ffaa00">// CONTACT</div>
+        <h2 class="text-xl sm:text-2xl font-bold text-white mb-5">Get in <span class="text-[#ffaa00]">Touch</span></h2>
+        <p class="text-gray-400 text-sm mb-6">If you have a challenging AI/ML project, an AI/ML question, or just want to connect — feel free to reach out.</p>
+        <div class="terminal">
+            <div class="space-y-2.5 text-sm">
+                <p class="terminal-line text-gray-300"><span class="text-[#00d4ff]">email</span>: <a href="mailto:dev.batra@hotmail.com" class="text-white hover:text-[#00d4ff] transition-colors">dev.batra@hotmail.com</a></p>
+                <p class="terminal-line text-gray-300"><span class="text-[#ff2d78]">linkedin</span>: <a href="https://linkedin.com/in/devbatra" target="_blank" rel="noopener" class="text-white hover:text-[#ff2d78] transition-colors">linkedin.com/in/devbatra</a></p>
+                <p class="terminal-line text-gray-300"><span class="text-[#00ff88]">kaggle</span>: <a href="https://kaggle.com/devbatrax" target="_blank" rel="noopener" class="text-white hover:text-[#00ff88] transition-colors">kaggle.com/devbatrax</a></p>
+                <p class="terminal-line text-gray-300"><span class="text-[#ffaa00]">github</span>: <a href="https://github.com/dev4500" target="_blank" rel="noopener" class="text-white hover:text-[#ffaa00] transition-colors">github.com/dev4500</a></p>
+            </div>
+        </div>
+        <div class="mt-6 p-3 rounded-lg border border-[#00ff88]/10 bg-[#00ff88]/5"><p class="text-[10px] text-gray-500 tech-mono">STATUS: <span class="text-[#00ff88]">● OPEN TO COLLABORATIONS</span></p></div>`
         };
 
+        // ═══════════════════════════════════════════════
+        // PANEL MANAGEMENT
+        // ═══════════════════════════════════════════════
+        let activeTab = null;
+        const panel = document.getElementById('content-panel');
+        const panelBody = document.getElementById('panel-content');
+        const heroOverlay = document.getElementById('hero-overlay');
+        const header = document.getElementById('header');
+
+        function openTab(name) {
+            panelBody.innerHTML = tabContent[name];
+            activeTab = name;
+            panel.scrollTop = 0;
+            panel.classList.add('active');
+            header.classList.add('panel-open');
+            gsap.to(heroOverlay, { opacity: 0, duration: 0.3 });
+            setTimeout(() => { panel.querySelectorAll('.metric-fill').forEach(b => { const v = parseFloat(b.dataset.value); if (!isNaN(v)) b.style.width = v + '%'; }); }, 350);
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === name));
+            if (nodeGroups[name]) {
+                const n = nodeGroups[name].group;
+                let targetY = -Math.atan2(n.position.x, n.position.z);
+
+                // Offset Y slightly on desktop so it faces the visible center considering the side panel
+                let yOffset = window.innerWidth >= 768 ? -0.35 : 0;
+                targetY += yOffset;
+
+                let diffY = targetY - globeGroup.rotation.y;
+                diffY = Math.atan2(Math.sin(diffY), Math.cos(diffY)); // Normalize to [-PI, PI]
+                targetY = globeGroup.rotation.y + diffY;
+
+                // Tilt globe to bring node to vertical center
+                // Using correct YXZ projection to avoid tilting the node left/right
+                let Rxz = Math.hypot(n.position.x, n.position.z);
+                let targetX = Math.atan2(n.position.y, Rxz * Math.cos(yOffset));
+
+                gsap.to(globeGroup.rotation, { y: targetY, x: targetX, duration: 1.2, ease: 'power2.inOut' });
+            }
+        }
+        function closePanel() {
+            panel.classList.remove('active');
+            header.classList.remove('panel-open');
+            activeTab = null;
+            gsap.to(heroOverlay, { opacity: 1, duration: 0.4 });
+            document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+        }
+
+        // ═══════════════════════════════════════════════
+        // THREE.JS SCENE
+        // ═══════════════════════════════════════════════
+        const IS_M = window.innerWidth < 768;
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(IS_M ? 65 : 55, window.innerWidth / window.innerHeight, 0.1, 2000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        const GR = IS_M ? 3.2 : 4.2;
+        camera.position.z = IS_M ? 9.5 : 8.8;
+        const globeGroup = new THREE.Group();
+        globeGroup.rotation.order = 'YXZ';
+        scene.add(globeGroup);
+
+        // ═══════════════════════════════════════════════
+        // ★ DENSE GALAXY STAR FIELD  (5 layers)
+        // ═══════════════════════════════════════════════
+        function makeStars(count, spread, size, baseColor, opacity) {
+            const pos = new Float32Array(count * 3);
+            const col = new Float32Array(count * 3);
+            const c = new THREE.Color(baseColor);
+            for (let i = 0; i < count;) {
+                let x = (Math.random() - 0.5) * spread;
+                let y = (Math.random() - 0.5) * spread;
+                let z = (Math.random() - 0.5) * spread;
+                // Prevent stars from spawning too close to the globe or camera (radius 18)
+                if (Math.hypot(x, y, z) < 18) continue;
+
+                pos[i * 3] = x;
+                pos[i * 3 + 1] = y;
+                pos[i * 3 + 2] = z;
+                const v = 0.6 + Math.random() * 0.4;
+                col[i * 3] = c.r * v; col[i * 3 + 1] = c.g * v; col[i * 3 + 2] = c.b * v;
+                i++;
+            }
+            const g = new THREE.BufferGeometry();
+            g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            g.setAttribute('color', new THREE.BufferAttribute(col, 3));
+            const p = new THREE.Points(g, new THREE.PointsMaterial({
+                size, vertexColors: true, transparent: true, opacity,
+                blending: THREE.AdditiveBlending, depthWrite: false
+            }));
+            scene.add(p);
+            return p;
+        }
+        // L1: far faint dust
+        const sDust = makeStars(IS_M ? 6000 : 15000, 150, 0.04, '#556688', 0.45);
+        // L2: mid-field stars
+        const sMid = makeStars(IS_M ? 2000 : 5000, 120, 0.08, '#8899bb', 0.55);
+        // L3: bright white stars
+        const sBright = makeStars(IS_M ? 400 : 1000, 100, 0.18, '#ccddef', 0.75);
+        // L4: warm accent (orange/gold)
+        const sWarm = makeStars(IS_M ? 150 : 400, 90, 0.15, '#ffcc88', 0.65);
+        // L5: cool accent (blue-violet)
+        const sCool = makeStars(IS_M ? 150 : 400, 95, 0.14, '#aa88ff', 0.60);
+
+        // ═══════════════════════════════════════════════
+        // ★ SHOOTING STARS  (bigger + visible head glow)
+        // ═══════════════════════════════════════════════
+        const shootingStars = [];
+        const MAX_SS = 3;
+
+        function spawnSS() {
+            if (shootingStars.length >= MAX_SS) return;
+
+            // Start from a random edge
+            const side = Math.random();
+            let sx, sy;
+            if (side < 0.5) { sx = (Math.random() - 0.5) * 50; sy = 18 + Math.random() * 12; }
+            else { sx = 22 + Math.random() * 18; sy = (Math.random() - 0.5) * 25; }
+            const sz = -15 - Math.random() * 25;
+
+            // Direction: roughly diagonal downward-left
+            const angle = Math.PI * (0.55 + Math.random() * 0.35);
+            const speed = 0.55 + Math.random() * 0.4;
+            const vx = Math.cos(angle) * speed;
+            const vy = -Math.abs(Math.sin(angle)) * speed;
+            const vz = (Math.random() - 0.5) * 0.08;
+
+            const tailLen = 18 + Math.random() * 22; // much longer
+            const tailF = tailLen * 0.18;
+
+            // ── Trail line (primary bright) ──
+            const pos1 = new Float32Array(6);
+            pos1[0] = sx; pos1[1] = sy; pos1[2] = sz;
+            pos1[3] = sx - vx * tailF; pos1[4] = sy - vy * tailF; pos1[5] = sz - vz * tailF;
+            const g1 = new THREE.BufferGeometry();
+            g1.setAttribute('position', new THREE.BufferAttribute(pos1, 3));
+            const m1 = new THREE.LineBasicMaterial({ color: 0xeeeeff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
+            const line1 = new THREE.Line(g1, m1);
+            scene.add(line1);
+
+            // ── Wider faint trail (glow width) ──
+            const pos2 = new Float32Array(6);
+            const offset = 0.12;
+            pos2[0] = sx + offset; pos2[1] = sy - offset; pos2[2] = sz;
+            pos2[3] = sx - vx * tailF * 0.7 + offset; pos2[4] = sy - vy * tailF * 0.7 - offset; pos2[5] = sz;
+            const g2 = new THREE.BufferGeometry();
+            g2.setAttribute('position', new THREE.BufferAttribute(pos2, 3));
+            const m2 = new THREE.LineBasicMaterial({ color: 0xaabbff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
+            const line2 = new THREE.Line(g2, m2);
+            scene.add(line2);
+
+            // ── Bright head point ──
+            const headPos = new Float32Array([sx, sy, sz]);
+            const hg = new THREE.BufferGeometry();
+            hg.setAttribute('position', new THREE.BufferAttribute(headPos, 3));
+            const hm = new THREE.PointsMaterial({ size: IS_M ? 0.6 : 0.45, color: 0xffffff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
+            const head = new THREE.Points(hg, hm);
+            scene.add(head);
+
+            shootingStars.push({
+                line1, g1, m1, pos1,
+                line2, g2, m2, pos2,
+                head, hg, hm, headPos,
+                vx, vy, vz, tailF, offset,
+                life: 0,
+                maxLife: 1.1 + Math.random() * 0.7
+            });
+        }
+
+        function updateSS(dt) {
+            for (let i = shootingStars.length - 1; i >= 0; i--) {
+                const s = shootingStars[i];
+                s.life += dt;
+                const t = s.life / s.maxLife;
+
+                // Move head
+                s.pos1[0] += s.vx; s.pos1[1] += s.vy; s.pos1[2] += s.vz;
+                s.pos1[3] = s.pos1[0] - s.vx * s.tailF;
+                s.pos1[4] = s.pos1[1] - s.vy * s.tailF;
+                s.pos1[5] = s.pos1[2] - s.vz * s.tailF;
+                s.g1.attributes.position.needsUpdate = true;
+
+                s.pos2[0] = s.pos1[0] + s.offset;
+                s.pos2[1] = s.pos1[1] - s.offset;
+                s.pos2[2] = s.pos1[2];
+                s.pos2[3] = s.pos1[0] - s.vx * s.tailF * 0.7 + s.offset;
+                s.pos2[4] = s.pos1[1] - s.vy * s.tailF * 0.7 - s.offset;
+                s.pos2[5] = s.pos1[2];
+                s.g2.attributes.position.needsUpdate = true;
+
+                s.headPos[0] = s.pos1[0];
+                s.headPos[1] = s.pos1[1];
+                s.headPos[2] = s.pos1[2];
+                s.hg.attributes.position.needsUpdate = true;
+
+                // Opacity envelope: fade-in → hold → fade-out
+                let op;
+                if (t < 0.08) op = t / 0.08;
+                else if (t < 0.55) op = 1;
+                else op = 1 - (t - 0.55) / 0.45;
+                s.m1.opacity = op * 0.85;
+                s.m2.opacity = op * 0.35;
+                s.hm.opacity = op * 0.95;
+
+                if (t >= 1) {
+                    scene.remove(s.line1); scene.remove(s.line2); scene.remove(s.head);
+                    s.g1.dispose(); s.m1.dispose(); s.g2.dispose(); s.m2.dispose(); s.hg.dispose(); s.hm.dispose();
+                    shootingStars.splice(i, 1);
+                }
+            }
+        }
+
+        // Spawn loop
+        setInterval(spawnSS, 1800 + Math.random() * 1400);
+        setTimeout(spawnSS, 600);
+        setTimeout(spawnSS, 1800);
+
+        // ═══════════════════════════════════════════════
+        // GLOBE — Particle Sphere
+        // ═══════════════════════════════════════════════
+        const PCOUNT = IS_M ? 1200 : 2200;
+        const pPos = new Float32Array(PCOUNT * 3);
+        const pCol = new Float32Array(PCOUNT * 3);
+        for (let i = 0; i < PCOUNT; i++) {
+            const phi = Math.acos(2 * Math.random() - 1), theta = Math.random() * Math.PI * 2;
+            pPos[i * 3] = GR * Math.sin(phi) * Math.cos(theta); pPos[i * 3 + 1] = GR * Math.cos(phi); pPos[i * 3 + 2] = GR * Math.sin(phi) * Math.sin(theta);
+            pCol[i * 3] = 0.0 + Math.random() * 0.15; pCol[i * 3 + 1] = 0.65 + Math.random() * 0.35; pCol[i * 3 + 2] = 0.80 + Math.random() * 0.2;
+        }
+        const pGeo = new THREE.BufferGeometry();
+        pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+        pGeo.setAttribute('color', new THREE.BufferAttribute(pCol, 3));
+        globeGroup.add(new THREE.Points(pGeo, new THREE.PointsMaterial({ size: IS_M ? .035 : .025, vertexColors: true, transparent: true, opacity: .6, blending: THREE.AdditiveBlending, depthWrite: false })));
+
+        // Neural Network Lines
+        const LCOUNT = IS_M ? 50 : 100, lPos = new Float32Array(LCOUNT * 6), lGeo = new THREE.BufferGeometry();
+        function genLines() {
+            let idx = 0;
+            for (let a = 0; a < LCOUNT * 8 && idx < LCOUNT; a++) {
+                const i = Math.floor(Math.random() * PCOUNT), j = Math.floor(Math.random() * PCOUNT);
+                const dx = pPos[i * 3] - pPos[j * 3], dy = pPos[i * 3 + 1] - pPos[j * 3 + 1], dz = pPos[i * 3 + 2] - pPos[j * 3 + 2];
+                const d = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                if (d < GR * 1.15 && d > 0.3) { lPos[idx * 6] = pPos[i * 3]; lPos[idx * 6 + 1] = pPos[i * 3 + 1]; lPos[idx * 6 + 2] = pPos[i * 3 + 2]; lPos[idx * 6 + 3] = pPos[j * 3]; lPos[idx * 6 + 4] = pPos[j * 3 + 1]; lPos[idx * 6 + 5] = pPos[j * 3 + 2]; idx++; }
+            }
+            lGeo.setAttribute('position', new THREE.BufferAttribute(lPos, 3));
+            if (lGeo.attributes.position) lGeo.attributes.position.needsUpdate = true;
+        }
+        genLines();
+        const lMat = new THREE.LineBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: .12, blending: THREE.AdditiveBlending, depthWrite: false });
+        globeGroup.add(new THREE.LineSegments(lGeo, lMat));
+        setInterval(() => { gsap.to(lMat, { opacity: .02, duration: .35, onComplete() { genLines(); gsap.to(lMat, { opacity: .12, duration: .55 }); } }); }, 3500);
+
+        // Orbital rings
+        function mkRing(rx, rz, off) {
+            const r = new THREE.Mesh(new THREE.RingGeometry(GR + off, GR + off + 0.02, 128), new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: .06, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false }));
+            r.rotation.x = rx; r.rotation.z = rz; globeGroup.add(r); return r;
+        }
+        const ring1 = mkRing(Math.PI / 2, 0, .55);
+        const ring2 = mkRing(Math.PI * .35, Math.PI * .15, .55);
+
+        // ═══════════════════════════════════════════════
+        // ★ CORE NODES  — NEW colour palette
+        //   About:    Cyan   #00d4ff
+        //   Skills:   Pink   #ff2d78
+        //   Projects: Emerald #00ff88
+        //   Contact:  Amber  #ffaa00
+        // ═══════════════════════════════════════════════
+        const coreNodeMeshes = {};
+        const nodeGroups = {};
+        const NODE_DATA = [
+            { name: 'about', label: 'ABOUT', color: 0x00d4ff, hex: '#00d4ff', phi: Math.PI * 0.3, theta: 0 },
+            { name: 'skills', label: 'SKILLS', color: 0xff2d78, hex: '#ff2d78', phi: Math.PI * 0.55, theta: Math.PI * 0.55 },
+            { name: 'projects', label: 'PROJECTS', color: 0x00ff88, hex: '#00ff88', phi: Math.PI * 0.4, theta: Math.PI * 1.15 },
+            { name: 'contact', label: 'CONTACT', color: 0xffaa00, hex: '#ffaa00', phi: Math.PI * 0.72, theta: Math.PI * 1.7 }
+        ];
+        const NSIZE = IS_M ? 0.18 : 0.14;
+
+        NODE_DATA.forEach(d => {
+            const x = GR * Math.sin(d.phi) * Math.cos(d.theta);
+            const y = GR * Math.cos(d.phi);
+            const z = GR * Math.sin(d.phi) * Math.sin(d.theta);
+            const dir = new THREE.Vector3(x, y, z).normalize();
+
+            const nG = new THREE.Group();
+            nG.position.set(x, y, z);
+
+            // Core sphere
+            const core = new THREE.Mesh(new THREE.SphereGeometry(NSIZE, 16, 16), new THREE.MeshBasicMaterial({ color: d.color, transparent: true, opacity: 1 }));
+            core.userData = { tabName: d.name };
+            nG.add(core);
+            coreNodeMeshes[d.name] = core;
+
+            // Large halo
+            nG.add(new THREE.Mesh(new THREE.SphereGeometry(NSIZE * 4, 16, 16), new THREE.MeshBasicMaterial({ color: d.color, transparent: true, opacity: .08, blending: THREE.AdditiveBlending, depthWrite: false })));
+            // Inner glow
+            const ig = new THREE.Mesh(new THREE.SphereGeometry(NSIZE * 2, 16, 16), new THREE.MeshBasicMaterial({ color: d.color, transparent: true, opacity: .15, blending: THREE.AdditiveBlending, depthWrite: false }));
+            nG.add(ig);
+
+            // Ring 1
+            const r1 = new THREE.Mesh(new THREE.RingGeometry(NSIZE * 2.2, NSIZE * 2.5, 48), new THREE.MeshBasicMaterial({ color: d.color, transparent: true, opacity: .35, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false }));
+            nG.add(r1);
+            // Ring 2
+            const r2 = new THREE.Mesh(new THREE.RingGeometry(NSIZE * 3.0, NSIZE * 3.2, 48), new THREE.MeshBasicMaterial({ color: d.color, transparent: true, opacity: .15, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false }));
+            r2.rotation.x = Math.PI * .4; r2.rotation.y = Math.PI * .3;
+            nG.add(r2);
+
+            // Beacon line
+            const bGeo = new THREE.BufferGeometry();
+            bGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array([0, 0, 0, dir.x * .6, dir.y * .6, dir.z * .6]), 3));
+            nG.add(new THREE.Line(bGeo, new THREE.LineBasicMaterial({ color: d.color, transparent: true, opacity: .4, blending: THREE.AdditiveBlending, depthWrite: false })));
+
+            // Label sprite with pill background
+            const cvs = document.createElement('canvas');
+            cvs.width = 512; cvs.height = 128;
+            const ctx = cvs.getContext('2d');
+            // Pill BG
+            const pW = 320, pH = 70, pX = (512 - pW) / 2, pY = 25;
+            ctx.fillStyle = 'rgba(4,4,16,0.65)';
+            ctx.beginPath();
+            // roundRect fallback
+            if (ctx.roundRect) { ctx.roundRect(pX, pY, pW, pH, 12); }
+            else { ctx.moveTo(pX + 12, pY); ctx.lineTo(pX + pW - 12, pY); ctx.quadraticCurveTo(pX + pW, pY, pX + pW, pY + 12); ctx.lineTo(pX + pW, pY + pH - 12); ctx.quadraticCurveTo(pX + pW, pY + pH, pX + pW - 12, pY + pH); ctx.lineTo(pX + 12, pY + pH); ctx.quadraticCurveTo(pX, pY + pH, pX, pY + pH - 12); ctx.lineTo(pX, pY + 12); ctx.quadraticCurveTo(pX, pY, pX + 12, pY); ctx.closePath(); }
+            ctx.fill();
+            ctx.strokeStyle = d.hex; ctx.lineWidth = 2; ctx.shadowColor = d.hex; ctx.shadowBlur = 15; ctx.stroke();
+            ctx.font = 'bold 36px Share Tech Mono'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillStyle = d.hex; ctx.shadowBlur = 20; ctx.fillText(d.label, 256, 60);
+
+            const spr = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cvs), transparent: true, opacity: .95, depthWrite: false }));
+            const lD = IS_M ? 1.1 : 0.9;
+            spr.position.set(dir.x * lD, dir.y * lD + 0.45, dir.z * lD);
+            spr.scale.set(IS_M ? 2.2 : 1.8, IS_M ? 0.55 : 0.45, 1);
+            nG.add(spr);
+
+            globeGroup.add(nG);
+            nodeGroups[d.name] = { group: nG, ring: r1, ring2: r2, halo: nG.children[1], innerGlow: ig, core };
+        });
+
+        // ═══════════════════════════════════════════════
+        // INTERACTION
+        // ═══════════════════════════════════════════════
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2(-999, -999);
+        let isDragging = false, prevPtr = { x: 0, y: 0 }, autoRotate = true, rotVel = { x: 0, y: 0 }, hoveredNode = null;
+
+        function ptr(e) { const t = e.touches ? e.touches[0] : e; return { x: t.clientX, y: t.clientY } }
+        function onDown(e) { prevPtr = ptr(e); isDragging = true; autoRotate = false; rotVel = { x: 0, y: 0 } }
+        function onMove(e) {
+            const p = ptr(e);
+            mouse.x = (p.x / window.innerWidth) * 2 - 1; mouse.y = -(p.y / window.innerHeight) * 2 + 1;
+            if (isDragging) { const dx = p.x - prevPtr.x, dy = p.y - prevPtr.y; globeGroup.rotation.y += dx * .005; globeGroup.rotation.x = Math.max(-1, Math.min(1, globeGroup.rotation.x + dy * .005)); rotVel = { x: dy * .005, y: dx * .005 }; prevPtr = p }
+        }
+        function onUp() { isDragging = false; setTimeout(() => { if (!isDragging) autoRotate = true }, 3000) }
+
+        container.addEventListener('mousedown', onDown); container.addEventListener('mousemove', onMove); container.addEventListener('mouseup', onUp); container.addEventListener('mouseleave', () => { isDragging = false }); container.addEventListener('click', e => tryClick(e.clientX, e.clientY));
+        let tS = { x: 0, y: 0, t: 0 };
+        container.addEventListener('touchstart', e => { const p = ptr(e); tS = { x: p.x, y: p.y, t: Date.now() }; onDown(e) }, { passive: true });
+        container.addEventListener('touchmove', e => onMove(e), { passive: true });
+        container.addEventListener('touchend', e => { onUp(); const p = e.changedTouches ? e.changedTouches[0] : tS; if (Date.now() - tS.t < 300 && Math.hypot(p.clientX - tS.x, p.clientY - tS.y) < 18) tryClick(p.clientX, p.clientY) }, { passive: true });
+
+        function tryClick(cx, cy) {
+            mouse.x = (cx / window.innerWidth) * 2 - 1; mouse.y = -(cy / window.innerHeight) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObjects(Object.values(coreNodeMeshes));
+            if (hits.length && hits[0].object.userData.tabName) openTab(hits[0].object.userData.tabName);
+        }
+
+        // ═══════════════════════════════════════════════
+        // RENDER LOOP
+        // ═══════════════════════════════════════════════
+        let time = 0;
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const dt = clock.getDelta();
+            time += 0.01;
+
+            if (autoRotate && !isDragging) globeGroup.rotation.y += 0.0018;
+            if (!isDragging && !autoRotate) { globeGroup.rotation.y += rotVel.y; globeGroup.rotation.x += rotVel.x; rotVel.x *= .94; rotVel.y *= .94; }
+
+            // Node animations
+            Object.entries(nodeGroups).forEach(([_, nd], i) => {
+                const pulse = 1 + Math.sin(time * 2.5 + i * 1.6) * .08;
+                nd.ring.rotation.x += .015 + i * .003; nd.ring.rotation.z += .01;
+                nd.ring2.rotation.y += .012; nd.ring2.rotation.z -= .008;
+                nd.halo.scale.setScalar(1 + Math.sin(time * 1.8 + i * 2) * .15);
+                nd.halo.material.opacity = .06 + Math.sin(time * 2 + i) * .03;
+                nd.innerGlow.scale.setScalar(pulse);
+                nd.innerGlow.material.opacity = .12 + Math.sin(time * 3 + i * 1.3) * .06;
+                if (nd.core !== hoveredNode) nd.core.scale.setScalar(pulse);
+            });
+
+            lMat.opacity = .09 + Math.sin(time * .6) * .04;
+            ring1.rotation.z = time * .08; ring2.rotation.z = -time * .06;
+
+            // Star parallax rotation + twinkling
+            sDust.rotation.y += .00006; sDust.rotation.x += .00002;
+            sMid.rotation.y += .00012; sMid.rotation.x += .00004;
+            sBright.rotation.y += .0002; sBright.rotation.x += .00006;
+            sWarm.rotation.y -= .00008;
+            sCool.rotation.y += .00015;
+            sBright.material.opacity = .65 + Math.sin(time * 1.3) * .12;
+            sWarm.material.opacity = .55 + Math.sin(time * 1.0 + 1) * .15;
+            sCool.material.opacity = .50 + Math.sin(time * 1.6 + 2) * .12;
+
+            updateSS(dt);
+            updateHover();
+            renderer.render(scene, camera);
+        }
+
+        function updateHover() {
+            raycaster.setFromCamera(mouse, camera);
+            const hits = raycaster.intersectObjects(Object.values(coreNodeMeshes));
+            if (hoveredNode && (!hits.length || hits[0].object !== hoveredNode)) {
+                gsap.to(hoveredNode.scale, { x: 1, y: 1, z: 1, duration: .25 });
+                hoveredNode.material.opacity = 1;
+                container.style.cursor = 'grab';
+                hoveredNode = null;
+            }
+            if (hits.length && hits[0].object.userData.tabName) {
+                const n = hits[0].object;
+                if (n !== hoveredNode) { hoveredNode = n; gsap.to(n.scale, { x: 1.5, y: 1.5, z: 1.5, duration: .25 }); n.material.opacity = 1; container.style.cursor = 'pointer'; }
+            }
+        }
+
+        // ═══════════════════════════════════════════════
+        // RESIZE
+        // ═══════════════════════════════════════════════
+        window.addEventListener('resize', () => {
+            const w = window.innerWidth, h = window.innerHeight;
+            camera.aspect = w / h; camera.fov = w < 768 ? 65 : 55; camera.position.z = w < 768 ? 9.5 : 8.8;
+            camera.updateProjectionMatrix(); renderer.setSize(w, h);
+        });
+
+        // ═══════════════════════════════════════════════
+        // BOOT
+        // ═══════════════════════════════════════════════
+        window.addEventListener('load', () => {
+            animate();
+            setTimeout(() => { gsap.to('#loader', { opacity: 0, duration: .7, onComplete() { document.getElementById('loader').style.display = 'none' } }); }, 1400);
+        });
     </script>
 </body>
+
 </html>
